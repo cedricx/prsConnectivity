@@ -1,0 +1,3700 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Genes\_to\_Schafer\_for\_all}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \section{Map Allen Genes to Schafer}\label{map-allen-genes-to-schafer}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{from} \PY{n+nn}{Cedric\PYZus{}gene\PYZus{}functions} \PY{k+kn}{import} \PY{n}{geneMNItoSchaefer}
+        \PY{k+kn}{import} \PY{n+nn}{itertools}
+        \PY{k+kn}{import} \PY{n+nn}{os}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{n}{donor\PYZus{}list} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{10021}\PY{p}{,} \PY{l+m+mi}{12876}\PY{p}{,} \PY{l+m+mi}{14380}\PY{p}{,} \PY{l+m+mi}{15496}\PY{p}{,} \PY{l+m+mi}{15697}\PY{p}{,} \PY{l+m+mi}{9861}\PY{p}{]}
+        \PY{n}{parcel\PYZus{}list} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{100}\PY{p}{,} \PY{l+m+mi}{200}\PY{p}{,} \PY{l+m+mi}{400}\PY{p}{,} \PY{l+m+mi}{600}\PY{p}{,} \PY{l+m+mi}{800}\PY{p}{]}
+        \PY{n}{network\PYZus{}list} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{7}\PY{p}{,} \PY{l+m+mi}{17}\PY{p}{]}
+        \PY{n}{mm\PYZus{}list} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{c+c1}{\PYZsh{} expand lists to all possible combinations}
+        \PY{n}{iterables} \PY{o}{=} \PY{p}{[} \PY{n}{donor\PYZus{}list}\PY{p}{,} \PY{n}{parcel\PYZus{}list}\PY{p}{,} \PY{n}{network\PYZus{}list}\PY{p}{,} \PY{n}{mm\PYZus{}list}\PY{p}{]} 
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{c+c1}{\PYZsh{} run geneMNItoSchaefer for all }
+         \PY{k}{for} \PY{n}{parameter\PYZus{}combo} \PY{o+ow}{in} \PY{n}{itertools}\PY{o}{.}\PY{n}{product}\PY{p}{(}\PY{o}{*}\PY{n}{iterables}\PY{p}{)}\PY{p}{:}
+             \PY{n}{geneMNItoSchaefer}\PY{p}{(}\PY{o}{*}\PY{n}{parameter\PYZus{}combo}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Start to map genes from donor 10021 to Schaefer at 100 parcels and 7 networks at 1 mm resolution
+
+Mapping genes to image coordinates
+
+   mni\_x  mni\_y  mni\_z  img\_x  img\_y  img\_z parcel    community
+0  -29.2    5.8   -2.6  119.2  131.8   69.4      0  NotAssigned
+1  -10.1    5.9   -8.4  100.1  131.9   63.6      0  NotAssigned
+2    8.9    8.5   -7.4   81.1  134.5   64.6      0  NotAssigned
+3    7.9    0.8   -6.7   82.1  126.8   65.3      0  NotAssigned
+4   16.9    0.9   -9.1   73.1  126.9   62.9      0  NotAssigned
+5   37.0   -0.5    4.1   53.0  125.5   76.1     76  SalVentAttn
+6   13.4    2.2    0.2   76.6  128.2   72.2      0  NotAssigned
+7   24.8    1.7  -22.1   65.2  127.7   49.9     80       Limbic
+8   19.2    0.7  -14.9   70.8  126.7   57.1      0  NotAssigned
+9   18.1    1.6  -22.1   71.9  127.6   49.9      0  NotAssigned
+
+
+Saved variables at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/10021donor\_100Parcels\_7Network\_1mm.pkl
+
+Saved csv at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/10021donor\_100Parcels\_7Network\_1mm.csv
+
+Start to map genes from donor 10021 to Schaefer at 100 parcels and 7 networks at 2 mm resolution
+
+Mapping genes to image coordinates
+
+   mni\_x  mni\_y  mni\_z  img\_x  img\_y  img\_z parcel    community
+0  -29.2    5.8   -2.6  59.60  65.90  34.70      0  NotAssigned
+1  -10.1    5.9   -8.4  50.05  65.95  31.80      0  NotAssigned
+2    8.9    8.5   -7.4  40.55  67.25  32.30      0  NotAssigned
+3    7.9    0.8   -6.7  41.05  63.40  32.65      0  NotAssigned
+4   16.9    0.9   -9.1  36.55  63.45  31.45      0  NotAssigned
+5   37.0   -0.5    4.1  26.50  62.75  38.05     76  SalVentAttn
+6   13.4    2.2    0.2  38.30  64.10  36.10      0  NotAssigned
+7   24.8    1.7  -22.1  32.60  63.85  24.95     80       Limbic
+8   19.2    0.7  -14.9  35.40  63.35  28.55      0  NotAssigned
+9   18.1    1.6  -22.1  35.95  63.80  24.95      0  NotAssigned
+
+
+Saved variables at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/10021donor\_100Parcels\_7Network\_2mm.pkl
+
+Saved csv at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/10021donor\_100Parcels\_7Network\_2mm.csv
+
+Start to map genes from donor 10021 to Schaefer at 100 parcels and 17 networks at 1 mm resolution
+
+Mapping genes to image coordinates
+
+   mni\_x  mni\_y  mni\_z  img\_x  img\_y  img\_z parcel     community
+0  -29.2    5.8   -2.6  119.2  131.8   69.4      0   NotAssigned
+1  -10.1    5.9   -8.4  100.1  131.9   63.6      0   NotAssigned
+2    8.9    8.5   -7.4   81.1  134.5   64.6      0   NotAssigned
+3    7.9    0.8   -6.7   82.1  126.8   65.3      0   NotAssigned
+4   16.9    0.9   -9.1   73.1  126.9   62.9      0   NotAssigned
+5   37.0   -0.5    4.1   53.0  125.5   76.1     72  SalVentAttnA
+6   13.4    2.2    0.2   76.6  128.2   72.2      0   NotAssigned
+7   24.8    1.7  -22.1   65.2  127.7   49.9     79        Limbic
+8   19.2    0.7  -14.9   70.8  126.7   57.1      0   NotAssigned
+9   18.1    1.6  -22.1   71.9  127.6   49.9      0   NotAssigned
+
+
+Saved variables at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/10021donor\_100Parcels\_17Network\_1mm.pkl
+
+Saved csv at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/10021donor\_100Parcels\_17Network\_1mm.csv
+
+Start to map genes from donor 10021 to Schaefer at 100 parcels and 17 networks at 2 mm resolution
+
+Mapping genes to image coordinates
+
+   mni\_x  mni\_y  mni\_z  img\_x  img\_y  img\_z parcel     community
+0  -29.2    5.8   -2.6  59.60  65.90  34.70      0   NotAssigned
+1  -10.1    5.9   -8.4  50.05  65.95  31.80      0   NotAssigned
+2    8.9    8.5   -7.4  40.55  67.25  32.30      0   NotAssigned
+3    7.9    0.8   -6.7  41.05  63.40  32.65      0   NotAssigned
+4   16.9    0.9   -9.1  36.55  63.45  31.45      0   NotAssigned
+5   37.0   -0.5    4.1  26.50  62.75  38.05     72  SalVentAttnA
+6   13.4    2.2    0.2  38.30  64.10  36.10      0   NotAssigned
+7   24.8    1.7  -22.1  32.60  63.85  24.95     79        Limbic
+8   19.2    0.7  -14.9  35.40  63.35  28.55      0   NotAssigned
+9   18.1    1.6  -22.1  35.95  63.80  24.95      0   NotAssigned
+
+
+Saved variables at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/10021donor\_100Parcels\_17Network\_2mm.pkl
+
+Saved csv at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/10021donor\_100Parcels\_17Network\_2mm.csv
+
+Start to map genes from donor 10021 to Schaefer at 200 parcels and 7 networks at 1 mm resolution
+
+Mapping genes to image coordinates
+
+   mni\_x  mni\_y  mni\_z  img\_x  img\_y  img\_z parcel    community
+0  -29.2    5.8   -2.6  119.2  131.8   69.4      0  NotAssigned
+1  -10.1    5.9   -8.4  100.1  131.9   63.6      0  NotAssigned
+2    8.9    8.5   -7.4   81.1  134.5   64.6      0  NotAssigned
+3    7.9    0.8   -6.7   82.1  126.8   65.3      0  NotAssigned
+4   16.9    0.9   -9.1   73.1  126.9   62.9      0  NotAssigned
+5   37.0   -0.5    4.1   53.0  125.5   76.1    155  SalVentAttn
+6   13.4    2.2    0.2   76.6  128.2   72.2      0  NotAssigned
+7   24.8    1.7  -22.1   65.2  127.7   49.9    162       Limbic
+8   19.2    0.7  -14.9   70.8  126.7   57.1      0  NotAssigned
+9   18.1    1.6  -22.1   71.9  127.6   49.9      0  NotAssigned
+
+
+Saved variables at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/10021donor\_200Parcels\_7Network\_1mm.pkl
+
+Saved csv at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/10021donor\_200Parcels\_7Network\_1mm.csv
+
+Start to map genes from donor 10021 to Schaefer at 200 parcels and 7 networks at 2 mm resolution
+
+Mapping genes to image coordinates
+
+   mni\_x  mni\_y  mni\_z  img\_x  img\_y  img\_z parcel    community
+0  -29.2    5.8   -2.6  59.60  65.90  34.70      0  NotAssigned
+1  -10.1    5.9   -8.4  50.05  65.95  31.80      0  NotAssigned
+2    8.9    8.5   -7.4  40.55  67.25  32.30      0  NotAssigned
+3    7.9    0.8   -6.7  41.05  63.40  32.65      0  NotAssigned
+4   16.9    0.9   -9.1  36.55  63.45  31.45      0  NotAssigned
+5   37.0   -0.5    4.1  26.50  62.75  38.05    155  SalVentAttn
+6   13.4    2.2    0.2  38.30  64.10  36.10      0  NotAssigned
+7   24.8    1.7  -22.1  32.60  63.85  24.95    162       Limbic
+8   19.2    0.7  -14.9  35.40  63.35  28.55      0  NotAssigned
+9   18.1    1.6  -22.1  35.95  63.80  24.95      0  NotAssigned
+
+
+Saved variables at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/10021donor\_200Parcels\_7Network\_2mm.pkl
+
+Saved csv at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/10021donor\_200Parcels\_7Network\_2mm.csv
+
+Start to map genes from donor 10021 to Schaefer at 200 parcels and 17 networks at 1 mm resolution
+
+Mapping genes to image coordinates
+
+   mni\_x  mni\_y  mni\_z  img\_x  img\_y  img\_z parcel     community
+0  -29.2    5.8   -2.6  119.2  131.8   69.4      0   NotAssigned
+1  -10.1    5.9   -8.4  100.1  131.9   63.6      0   NotAssigned
+2    8.9    8.5   -7.4   81.1  134.5   64.6      0   NotAssigned
+3    7.9    0.8   -6.7   82.1  126.8   65.3      0   NotAssigned
+4   16.9    0.9   -9.1   73.1  126.9   62.9      0   NotAssigned
+5   37.0   -0.5    4.1   53.0  125.5   76.1    146  SalVentAttnA
+6   13.4    2.2    0.2   76.6  128.2   72.2      0   NotAssigned
+7   24.8    1.7  -22.1   65.2  127.7   49.9    161        Limbic
+8   19.2    0.7  -14.9   70.8  126.7   57.1      0   NotAssigned
+9   18.1    1.6  -22.1   71.9  127.6   49.9      0   NotAssigned
+
+
+Saved variables at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/10021donor\_200Parcels\_17Network\_1mm.pkl
+
+Saved csv at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/10021donor\_200Parcels\_17Network\_1mm.csv
+
+Start to map genes from donor 10021 to Schaefer at 200 parcels and 17 networks at 2 mm resolution
+
+Mapping genes to image coordinates
+
+   mni\_x  mni\_y  mni\_z  img\_x  img\_y  img\_z parcel     community
+0  -29.2    5.8   -2.6  59.60  65.90  34.70      0   NotAssigned
+1  -10.1    5.9   -8.4  50.05  65.95  31.80      0   NotAssigned
+2    8.9    8.5   -7.4  40.55  67.25  32.30      0   NotAssigned
+3    7.9    0.8   -6.7  41.05  63.40  32.65      0   NotAssigned
+4   16.9    0.9   -9.1  36.55  63.45  31.45      0   NotAssigned
+5   37.0   -0.5    4.1  26.50  62.75  38.05    146  SalVentAttnA
+6   13.4    2.2    0.2  38.30  64.10  36.10      0   NotAssigned
+7   24.8    1.7  -22.1  32.60  63.85  24.95    161        Limbic
+8   19.2    0.7  -14.9  35.40  63.35  28.55      0   NotAssigned
+9   18.1    1.6  -22.1  35.95  63.80  24.95      0   NotAssigned
+
+
+Saved variables at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/10021donor\_200Parcels\_17Network\_2mm.pkl
+
+Saved csv at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/10021donor\_200Parcels\_17Network\_2mm.csv
+
+Start to map genes from donor 10021 to Schaefer at 400 parcels and 7 networks at 1 mm resolution
+
+Mapping genes to image coordinates
+
+   mni\_x  mni\_y  mni\_z  img\_x  img\_y  img\_z parcel    community
+0  -29.2    5.8   -2.6  119.2  131.8   69.4      0  NotAssigned
+1  -10.1    5.9   -8.4  100.1  131.9   63.6      0  NotAssigned
+2    8.9    8.5   -7.4   81.1  134.5   64.6      0  NotAssigned
+3    7.9    0.8   -6.7   82.1  126.8   65.3      0  NotAssigned
+4   16.9    0.9   -9.1   73.1  126.9   62.9      0  NotAssigned
+5   37.0   -0.5    4.1   53.0  125.5   76.1    305  SalVentAttn
+6   13.4    2.2    0.2   76.6  128.2   72.2      0  NotAssigned
+7   24.8    1.7  -22.1   65.2  127.7   49.9    329       Limbic
+8   19.2    0.7  -14.9   70.8  126.7   57.1      0  NotAssigned
+9   18.1    1.6  -22.1   71.9  127.6   49.9      0  NotAssigned
+
+
+Saved variables at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/10021donor\_400Parcels\_7Network\_1mm.pkl
+
+Saved csv at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/10021donor\_400Parcels\_7Network\_1mm.csv
+
+Start to map genes from donor 10021 to Schaefer at 400 parcels and 7 networks at 2 mm resolution
+
+Mapping genes to image coordinates
+
+   mni\_x  mni\_y  mni\_z  img\_x  img\_y  img\_z parcel    community
+0  -29.2    5.8   -2.6  59.60  65.90  34.70      0  NotAssigned
+1  -10.1    5.9   -8.4  50.05  65.95  31.80      0  NotAssigned
+2    8.9    8.5   -7.4  40.55  67.25  32.30      0  NotAssigned
+3    7.9    0.8   -6.7  41.05  63.40  32.65      0  NotAssigned
+4   16.9    0.9   -9.1  36.55  63.45  31.45      0  NotAssigned
+5   37.0   -0.5    4.1  26.50  62.75  38.05    305  SalVentAttn
+6   13.4    2.2    0.2  38.30  64.10  36.10      0  NotAssigned
+7   24.8    1.7  -22.1  32.60  63.85  24.95    329       Limbic
+8   19.2    0.7  -14.9  35.40  63.35  28.55      0  NotAssigned
+9   18.1    1.6  -22.1  35.95  63.80  24.95      0  NotAssigned
+
+
+Saved variables at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/10021donor\_400Parcels\_7Network\_2mm.pkl
+
+Saved csv at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/10021donor\_400Parcels\_7Network\_2mm.csv
+
+Start to map genes from donor 10021 to Schaefer at 400 parcels and 17 networks at 1 mm resolution
+
+Mapping genes to image coordinates
+
+   mni\_x  mni\_y  mni\_z  img\_x  img\_y  img\_z parcel     community
+0  -29.2    5.8   -2.6  119.2  131.8   69.4      0   NotAssigned
+1  -10.1    5.9   -8.4  100.1  131.9   63.6      0   NotAssigned
+2    8.9    8.5   -7.4   81.1  134.5   64.6      0   NotAssigned
+3    7.9    0.8   -6.7   82.1  126.8   65.3      0   NotAssigned
+4   16.9    0.9   -9.1   73.1  126.9   62.9      0   NotAssigned
+5   37.0   -0.5    4.1   53.0  125.5   76.1    292  SalVentAttnA
+6   13.4    2.2    0.2   76.6  128.2   72.2      0   NotAssigned
+7   24.8    1.7  -22.1   65.2  127.7   49.9    323        Limbic
+8   19.2    0.7  -14.9   70.8  126.7   57.1      0   NotAssigned
+9   18.1    1.6  -22.1   71.9  127.6   49.9      0   NotAssigned
+
+
+Saved variables at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/10021donor\_400Parcels\_17Network\_1mm.pkl
+
+Saved csv at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/10021donor\_400Parcels\_17Network\_1mm.csv
+
+Start to map genes from donor 10021 to Schaefer at 400 parcels and 17 networks at 2 mm resolution
+
+Mapping genes to image coordinates
+
+   mni\_x  mni\_y  mni\_z  img\_x  img\_y  img\_z parcel     community
+0  -29.2    5.8   -2.6  59.60  65.90  34.70      0   NotAssigned
+1  -10.1    5.9   -8.4  50.05  65.95  31.80      0   NotAssigned
+2    8.9    8.5   -7.4  40.55  67.25  32.30      0   NotAssigned
+3    7.9    0.8   -6.7  41.05  63.40  32.65      0   NotAssigned
+4   16.9    0.9   -9.1  36.55  63.45  31.45      0   NotAssigned
+5   37.0   -0.5    4.1  26.50  62.75  38.05    292  SalVentAttnA
+6   13.4    2.2    0.2  38.30  64.10  36.10      0   NotAssigned
+7   24.8    1.7  -22.1  32.60  63.85  24.95    323        Limbic
+8   19.2    0.7  -14.9  35.40  63.35  28.55      0   NotAssigned
+9   18.1    1.6  -22.1  35.95  63.80  24.95      0   NotAssigned
+
+
+Saved variables at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/10021donor\_400Parcels\_17Network\_2mm.pkl
+
+Saved csv at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/10021donor\_400Parcels\_17Network\_2mm.csv
+
+Start to map genes from donor 10021 to Schaefer at 600 parcels and 7 networks at 1 mm resolution
+
+Mapping genes to image coordinates
+
+   mni\_x  mni\_y  mni\_z  img\_x  img\_y  img\_z parcel    community
+0  -29.2    5.8   -2.6  119.2  131.8   69.4      0  NotAssigned
+1  -10.1    5.9   -8.4  100.1  131.9   63.6      0  NotAssigned
+2    8.9    8.5   -7.4   81.1  134.5   64.6      0  NotAssigned
+3    7.9    0.8   -6.7   82.1  126.8   65.3      0  NotAssigned
+4   16.9    0.9   -9.1   73.1  126.9   62.9      0  NotAssigned
+5   37.0   -0.5    4.1   53.0  125.5   76.1    455  SalVentAttn
+6   13.4    2.2    0.2   76.6  128.2   72.2      0  NotAssigned
+7   24.8    1.7  -22.1   65.2  127.7   49.9    490       Limbic
+8   19.2    0.7  -14.9   70.8  126.7   57.1      0  NotAssigned
+9   18.1    1.6  -22.1   71.9  127.6   49.9      0  NotAssigned
+
+
+Saved variables at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/10021donor\_600Parcels\_7Network\_1mm.pkl
+
+Saved csv at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/10021donor\_600Parcels\_7Network\_1mm.csv
+
+Start to map genes from donor 10021 to Schaefer at 600 parcels and 7 networks at 2 mm resolution
+
+Mapping genes to image coordinates
+
+   mni\_x  mni\_y  mni\_z  img\_x  img\_y  img\_z parcel    community
+0  -29.2    5.8   -2.6  59.60  65.90  34.70      0  NotAssigned
+1  -10.1    5.9   -8.4  50.05  65.95  31.80      0  NotAssigned
+2    8.9    8.5   -7.4  40.55  67.25  32.30      0  NotAssigned
+3    7.9    0.8   -6.7  41.05  63.40  32.65      0  NotAssigned
+4   16.9    0.9   -9.1  36.55  63.45  31.45      0  NotAssigned
+5   37.0   -0.5    4.1  26.50  62.75  38.05    455  SalVentAttn
+6   13.4    2.2    0.2  38.30  64.10  36.10      0  NotAssigned
+7   24.8    1.7  -22.1  32.60  63.85  24.95    490       Limbic
+8   19.2    0.7  -14.9  35.40  63.35  28.55      0  NotAssigned
+9   18.1    1.6  -22.1  35.95  63.80  24.95      0  NotAssigned
+
+
+Saved variables at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/10021donor\_600Parcels\_7Network\_2mm.pkl
+
+Saved csv at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/10021donor\_600Parcels\_7Network\_2mm.csv
+
+Start to map genes from donor 10021 to Schaefer at 600 parcels and 17 networks at 1 mm resolution
+
+Mapping genes to image coordinates
+
+   mni\_x  mni\_y  mni\_z  img\_x  img\_y  img\_z parcel     community
+0  -29.2    5.8   -2.6  119.2  131.8   69.4      0   NotAssigned
+1  -10.1    5.9   -8.4  100.1  131.9   63.6      0   NotAssigned
+2    8.9    8.5   -7.4   81.1  134.5   64.6      0   NotAssigned
+3    7.9    0.8   -6.7   82.1  126.8   65.3      0   NotAssigned
+4   16.9    0.9   -9.1   73.1  126.9   62.9      0   NotAssigned
+5   37.0   -0.5    4.1   53.0  125.5   76.1    430  SalVentAttnA
+6   13.4    2.2    0.2   76.6  128.2   72.2      0   NotAssigned
+7   24.8    1.7  -22.1   65.2  127.7   49.9    484        Limbic
+8   19.2    0.7  -14.9   70.8  126.7   57.1      0   NotAssigned
+9   18.1    1.6  -22.1   71.9  127.6   49.9      0   NotAssigned
+
+
+Saved variables at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/10021donor\_600Parcels\_17Network\_1mm.pkl
+
+Saved csv at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/10021donor\_600Parcels\_17Network\_1mm.csv
+
+Start to map genes from donor 10021 to Schaefer at 600 parcels and 17 networks at 2 mm resolution
+
+Mapping genes to image coordinates
+
+   mni\_x  mni\_y  mni\_z  img\_x  img\_y  img\_z parcel     community
+0  -29.2    5.8   -2.6  59.60  65.90  34.70      0   NotAssigned
+1  -10.1    5.9   -8.4  50.05  65.95  31.80      0   NotAssigned
+2    8.9    8.5   -7.4  40.55  67.25  32.30      0   NotAssigned
+3    7.9    0.8   -6.7  41.05  63.40  32.65      0   NotAssigned
+4   16.9    0.9   -9.1  36.55  63.45  31.45      0   NotAssigned
+5   37.0   -0.5    4.1  26.50  62.75  38.05    430  SalVentAttnA
+6   13.4    2.2    0.2  38.30  64.10  36.10      0   NotAssigned
+7   24.8    1.7  -22.1  32.60  63.85  24.95    484        Limbic
+8   19.2    0.7  -14.9  35.40  63.35  28.55      0   NotAssigned
+9   18.1    1.6  -22.1  35.95  63.80  24.95      0   NotAssigned
+
+
+Saved variables at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/10021donor\_600Parcels\_17Network\_2mm.pkl
+
+Saved csv at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/10021donor\_600Parcels\_17Network\_2mm.csv
+
+Start to map genes from donor 10021 to Schaefer at 800 parcels and 7 networks at 1 mm resolution
+
+Mapping genes to image coordinates
+
+   mni\_x  mni\_y  mni\_z  img\_x  img\_y  img\_z parcel    community
+0  -29.2    5.8   -2.6  119.2  131.8   69.4      0  NotAssigned
+1  -10.1    5.9   -8.4  100.1  131.9   63.6      0  NotAssigned
+2    8.9    8.5   -7.4   81.1  134.5   64.6      0  NotAssigned
+3    7.9    0.8   -6.7   82.1  126.8   65.3      0  NotAssigned
+4   16.9    0.9   -9.1   73.1  126.9   62.9      0  NotAssigned
+5   37.0   -0.5    4.1   53.0  125.5   76.1    615  SalVentAttn
+6   13.4    2.2    0.2   76.6  128.2   72.2      0  NotAssigned
+7   24.8    1.7  -22.1   65.2  127.7   49.9    659       Limbic
+8   19.2    0.7  -14.9   70.8  126.7   57.1      0  NotAssigned
+9   18.1    1.6  -22.1   71.9  127.6   49.9      0  NotAssigned
+
+
+Saved variables at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/10021donor\_800Parcels\_7Network\_1mm.pkl
+
+Saved csv at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/10021donor\_800Parcels\_7Network\_1mm.csv
+
+Start to map genes from donor 10021 to Schaefer at 800 parcels and 7 networks at 2 mm resolution
+
+Mapping genes to image coordinates
+
+   mni\_x  mni\_y  mni\_z  img\_x  img\_y  img\_z parcel    community
+0  -29.2    5.8   -2.6  59.60  65.90  34.70      0  NotAssigned
+1  -10.1    5.9   -8.4  50.05  65.95  31.80      0  NotAssigned
+2    8.9    8.5   -7.4  40.55  67.25  32.30      0  NotAssigned
+3    7.9    0.8   -6.7  41.05  63.40  32.65      0  NotAssigned
+4   16.9    0.9   -9.1  36.55  63.45  31.45      0  NotAssigned
+5   37.0   -0.5    4.1  26.50  62.75  38.05    615  SalVentAttn
+6   13.4    2.2    0.2  38.30  64.10  36.10      0  NotAssigned
+7   24.8    1.7  -22.1  32.60  63.85  24.95    659       Limbic
+8   19.2    0.7  -14.9  35.40  63.35  28.55      0  NotAssigned
+9   18.1    1.6  -22.1  35.95  63.80  24.95      0  NotAssigned
+
+
+Saved variables at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/10021donor\_800Parcels\_7Network\_2mm.pkl
+
+Saved csv at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/10021donor\_800Parcels\_7Network\_2mm.csv
+
+Start to map genes from donor 10021 to Schaefer at 800 parcels and 17 networks at 1 mm resolution
+
+Mapping genes to image coordinates
+
+   mni\_x  mni\_y  mni\_z  img\_x  img\_y  img\_z parcel     community
+0  -29.2    5.8   -2.6  119.2  131.8   69.4      0   NotAssigned
+1  -10.1    5.9   -8.4  100.1  131.9   63.6      0   NotAssigned
+2    8.9    8.5   -7.4   81.1  134.5   64.6      0   NotAssigned
+3    7.9    0.8   -6.7   82.1  126.8   65.3      0   NotAssigned
+4   16.9    0.9   -9.1   73.1  126.9   62.9      0   NotAssigned
+5   37.0   -0.5    4.1   53.0  125.5   76.1    581  SalVentAttnA
+6   13.4    2.2    0.2   76.6  128.2   72.2      0   NotAssigned
+7   24.8    1.7  -22.1   65.2  127.7   49.9    649        Limbic
+8   19.2    0.7  -14.9   70.8  126.7   57.1      0   NotAssigned
+9   18.1    1.6  -22.1   71.9  127.6   49.9      0   NotAssigned
+
+
+Saved variables at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/10021donor\_800Parcels\_17Network\_1mm.pkl
+
+Saved csv at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/10021donor\_800Parcels\_17Network\_1mm.csv
+
+Start to map genes from donor 10021 to Schaefer at 800 parcels and 17 networks at 2 mm resolution
+
+Mapping genes to image coordinates
+
+   mni\_x  mni\_y  mni\_z  img\_x  img\_y  img\_z parcel     community
+0  -29.2    5.8   -2.6  59.60  65.90  34.70      0   NotAssigned
+1  -10.1    5.9   -8.4  50.05  65.95  31.80      0   NotAssigned
+2    8.9    8.5   -7.4  40.55  67.25  32.30      0   NotAssigned
+3    7.9    0.8   -6.7  41.05  63.40  32.65      0   NotAssigned
+4   16.9    0.9   -9.1  36.55  63.45  31.45      0   NotAssigned
+5   37.0   -0.5    4.1  26.50  62.75  38.05    581  SalVentAttnA
+6   13.4    2.2    0.2  38.30  64.10  36.10      0   NotAssigned
+7   24.8    1.7  -22.1  32.60  63.85  24.95    649        Limbic
+8   19.2    0.7  -14.9  35.40  63.35  28.55      0   NotAssigned
+9   18.1    1.6  -22.1  35.95  63.80  24.95      0   NotAssigned
+
+
+Saved variables at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/10021donor\_800Parcels\_17Network\_2mm.pkl
+
+Saved csv at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/10021donor\_800Parcels\_17Network\_2mm.csv
+
+Start to map genes from donor 12876 to Schaefer at 100 parcels and 7 networks at 1 mm resolution
+
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/anaconda2/envs/myenv2/lib/python2.7/site-packages/matplotlib/pyplot.py:528: RuntimeWarning: More than 20 figures have been opened. Figures created through the pyplot interface (`matplotlib.pyplot.figure`) are retained until explicitly closed and may consume too much memory. (To control this warning, see the rcParam `figure.max\_open\_warning`).
+  max\_open\_warning, RuntimeWarning)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Mapping genes to image coordinates
+
+   mni\_x  mni\_y  mni\_z  img\_x  img\_y  img\_z parcel    community
+0  -58.0  -46.0    3.0  148.0   80.0   75.0     39      Default
+1  -61.0  -46.0  -19.0  151.0   80.0   53.0     33       Limbic
+2  -52.0  -46.0  -17.0  142.0   80.0   55.0     16     DorsAttn
+3  -60.0  -36.0    1.0  150.0   90.0   73.0     39      Default
+4  -69.0  -36.0    9.0  159.0   90.0   81.0     10       SomMot
+5  -58.0  -19.0  -19.0  148.0  107.0   53.0     38      Default
+6  -43.0   -8.0   13.0  133.0  118.0   85.0     12       SomMot
+7  -41.0   -9.0    5.0  131.0  117.0   77.0     25  SalVentAttn
+8  -59.0   -8.0    5.0  149.0  118.0   77.0     10       SomMot
+9  -67.0   -8.0    4.0  157.0  118.0   76.0      0  NotAssigned
+
+
+Saved variables at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/12876donor\_100Parcels\_7Network\_1mm.pkl
+
+Saved csv at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/12876donor\_100Parcels\_7Network\_1mm.csv
+
+Start to map genes from donor 12876 to Schaefer at 100 parcels and 7 networks at 2 mm resolution
+
+Mapping genes to image coordinates
+
+   mni\_x  mni\_y  mni\_z  img\_x  img\_y  img\_z parcel    community
+0  -58.0  -46.0    3.0   74.0   40.0   37.5     40      Default
+1  -61.0  -46.0  -19.0   75.5   40.0   26.5     33       Limbic
+2  -52.0  -46.0  -17.0   71.0   40.0   27.5     16     DorsAttn
+3  -60.0  -36.0    1.0   75.0   45.0   36.5     39      Default
+4  -69.0  -36.0    9.0   79.5   45.0   40.5      0  NotAssigned
+5  -58.0  -19.0  -19.0   74.0   53.5   26.5     38      Default
+6  -43.0   -8.0   13.0   66.5   59.0   42.5     12       SomMot
+7  -41.0   -9.0    5.0   65.5   58.5   38.5     25  SalVentAttn
+8  -59.0   -8.0    5.0   74.5   59.0   38.5     10       SomMot
+9  -67.0   -8.0    4.0   78.5   59.0   38.0      0  NotAssigned
+
+
+Saved variables at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/12876donor\_100Parcels\_7Network\_2mm.pkl
+
+Saved csv at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/12876donor\_100Parcels\_7Network\_2mm.csv
+
+Start to map genes from donor 12876 to Schaefer at 100 parcels and 17 networks at 1 mm resolution
+
+Mapping genes to image coordinates
+
+   mni\_x  mni\_y  mni\_z  img\_x  img\_y  img\_z parcel     community
+0  -58.0  -46.0    3.0  148.0   80.0   75.0     42      DefaultB
+1  -61.0  -46.0  -19.0  151.0   80.0   53.0     30        Limbic
+2  -52.0  -46.0  -17.0  142.0   80.0   55.0     14     DorsAttnA
+3  -60.0  -36.0    1.0  150.0   90.0   73.0     42      DefaultB
+4  -69.0  -36.0    9.0  159.0   90.0   81.0     10       SomMotB
+5  -58.0  -19.0  -19.0  148.0  107.0   53.0     41      DefaultB
+6  -43.0   -8.0   13.0  133.0  118.0   85.0     12       SomMotB
+7  -41.0   -9.0    5.0  131.0  117.0   77.0     22  SalVentAttnA
+8  -59.0   -8.0    5.0  149.0  118.0   77.0     10       SomMotB
+9  -67.0   -8.0    4.0  157.0  118.0   76.0      0   NotAssigned
+
+
+Saved variables at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/12876donor\_100Parcels\_17Network\_1mm.pkl
+
+Saved csv at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/12876donor\_100Parcels\_17Network\_1mm.csv
+
+Start to map genes from donor 12876 to Schaefer at 100 parcels and 17 networks at 2 mm resolution
+
+Mapping genes to image coordinates
+
+   mni\_x  mni\_y  mni\_z  img\_x  img\_y  img\_z parcel     community
+0  -58.0  -46.0    3.0   74.0   40.0   37.5     50       TempPar
+1  -61.0  -46.0  -19.0   75.5   40.0   26.5     30        Limbic
+2  -52.0  -46.0  -17.0   71.0   40.0   27.5     14     DorsAttnA
+3  -60.0  -36.0    1.0   75.0   45.0   36.5     42      DefaultB
+4  -69.0  -36.0    9.0   79.5   45.0   40.5      0   NotAssigned
+5  -58.0  -19.0  -19.0   74.0   53.5   26.5     41      DefaultB
+6  -43.0   -8.0   13.0   66.5   59.0   42.5     12       SomMotB
+7  -41.0   -9.0    5.0   65.5   58.5   38.5     22  SalVentAttnA
+8  -59.0   -8.0    5.0   74.5   59.0   38.5     10       SomMotB
+9  -67.0   -8.0    4.0   78.5   59.0   38.0      0   NotAssigned
+
+
+Saved variables at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/12876donor\_100Parcels\_17Network\_2mm.pkl
+
+Saved csv at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/12876donor\_100Parcels\_17Network\_2mm.csv
+
+Start to map genes from donor 12876 to Schaefer at 200 parcels and 7 networks at 1 mm resolution
+
+Mapping genes to image coordinates
+
+   mni\_x  mni\_y  mni\_z  img\_x  img\_y  img\_z parcel    community
+0  -58.0  -46.0    3.0  148.0   80.0   75.0     78      Default
+1  -61.0  -46.0  -19.0  151.0   80.0   53.0     64         Cont
+2  -52.0  -46.0  -17.0  142.0   80.0   55.0     31     DorsAttn
+3  -60.0  -36.0    1.0  150.0   90.0   73.0     77      Default
+4  -69.0  -36.0    9.0  159.0   90.0   81.0     78      Default
+5  -58.0  -19.0  -19.0  148.0  107.0   53.0     75      Default
+6  -43.0   -8.0   13.0  133.0  118.0   85.0     17       SomMot
+7  -41.0   -9.0    5.0  131.0  117.0   77.0     47  SalVentAttn
+8  -59.0   -8.0    5.0  149.0  118.0   77.0     16       SomMot
+9  -67.0   -8.0    4.0  157.0  118.0   76.0      0  NotAssigned
+
+
+Saved variables at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/12876donor\_200Parcels\_7Network\_1mm.pkl
+
+Saved csv at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/12876donor\_200Parcels\_7Network\_1mm.csv
+
+Start to map genes from donor 12876 to Schaefer at 200 parcels and 7 networks at 2 mm resolution
+
+Mapping genes to image coordinates
+
+   mni\_x  mni\_y  mni\_z  img\_x  img\_y  img\_z parcel    community
+0  -58.0  -46.0    3.0   74.0   40.0   37.5     78      Default
+1  -61.0  -46.0  -19.0   75.5   40.0   26.5     64         Cont
+2  -52.0  -46.0  -17.0   71.0   40.0   27.5     31     DorsAttn
+3  -60.0  -36.0    1.0   75.0   45.0   36.5     77      Default
+4  -69.0  -36.0    9.0   79.5   45.0   40.5      0  NotAssigned
+5  -58.0  -19.0  -19.0   74.0   53.5   26.5     75      Default
+6  -43.0   -8.0   13.0   66.5   59.0   42.5     18       SomMot
+7  -41.0   -9.0    5.0   65.5   58.5   38.5     47  SalVentAttn
+8  -59.0   -8.0    5.0   74.5   59.0   38.5     15       SomMot
+9  -67.0   -8.0    4.0   78.5   59.0   38.0      0  NotAssigned
+
+
+Saved variables at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/12876donor\_200Parcels\_7Network\_2mm.pkl
+
+Saved csv at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/12876donor\_200Parcels\_7Network\_2mm.csv
+
+Start to map genes from donor 12876 to Schaefer at 200 parcels and 17 networks at 1 mm resolution
+
+Mapping genes to image coordinates
+
+   mni\_x  mni\_y  mni\_z  img\_x  img\_y  img\_z parcel     community
+0  -58.0  -46.0    3.0  148.0   80.0   75.0     99       TempPar
+1  -61.0  -46.0  -19.0  151.0   80.0   53.0     67         ContB
+2  -52.0  -46.0  -17.0  142.0   80.0   55.0     29     DorsAttnA
+3  -60.0  -36.0    1.0  150.0   90.0   73.0     86      DefaultB
+4  -69.0  -36.0    9.0  159.0   90.0   81.0     99       TempPar
+5  -58.0  -19.0  -19.0  148.0  107.0   53.0     84      DefaultB
+6  -43.0   -8.0   13.0  133.0  118.0   85.0     23       SomMotB
+7  -41.0   -9.0    5.0  131.0  117.0   77.0     41  SalVentAttnA
+8  -59.0   -8.0    5.0  149.0  118.0   77.0     22       SomMotB
+9  -67.0   -8.0    4.0  157.0  118.0   76.0      0   NotAssigned
+
+
+Saved variables at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/12876donor\_200Parcels\_17Network\_1mm.pkl
+
+Saved csv at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/12876donor\_200Parcels\_17Network\_1mm.csv
+
+Start to map genes from donor 12876 to Schaefer at 200 parcels and 17 networks at 2 mm resolution
+
+Mapping genes to image coordinates
+
+   mni\_x  mni\_y  mni\_z  img\_x  img\_y  img\_z parcel     community
+0  -58.0  -46.0    3.0   74.0   40.0   37.5     99       TempPar
+1  -61.0  -46.0  -19.0   75.5   40.0   26.5     67         ContB
+2  -52.0  -46.0  -17.0   71.0   40.0   27.5     29     DorsAttnA
+3  -60.0  -36.0    1.0   75.0   45.0   36.5     86      DefaultB
+4  -69.0  -36.0    9.0   79.5   45.0   40.5      0   NotAssigned
+5  -58.0  -19.0  -19.0   74.0   53.5   26.5     84      DefaultB
+6  -43.0   -8.0   13.0   66.5   59.0   42.5     24       SomMotB
+7  -41.0   -9.0    5.0   65.5   58.5   38.5     41  SalVentAttnA
+8  -59.0   -8.0    5.0   74.5   59.0   38.5     21       SomMotB
+9  -67.0   -8.0    4.0   78.5   59.0   38.0      0   NotAssigned
+
+
+Saved variables at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/12876donor\_200Parcels\_17Network\_2mm.pkl
+
+Saved csv at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/12876donor\_200Parcels\_17Network\_2mm.csv
+
+Start to map genes from donor 12876 to Schaefer at 400 parcels and 7 networks at 1 mm resolution
+
+Mapping genes to image coordinates
+
+   mni\_x  mni\_y  mni\_z  img\_x  img\_y  img\_z parcel    community
+0  -58.0  -46.0    3.0  148.0   80.0   75.0    154      Default
+1  -61.0  -46.0  -19.0  151.0   80.0   53.0    151      Default
+2  -52.0  -46.0  -17.0  142.0   80.0   55.0     70     DorsAttn
+3  -60.0  -36.0    1.0  150.0   90.0   73.0    154      Default
+4  -69.0  -36.0    9.0  159.0   90.0   81.0    157      Default
+5  -58.0  -19.0  -19.0  148.0  107.0   53.0    150      Default
+6  -43.0   -8.0   13.0  133.0  118.0   85.0     35       SomMot
+7  -41.0   -9.0    5.0  131.0  117.0   77.0     35       SomMot
+8  -59.0   -8.0    5.0  149.0  118.0   77.0     33       SomMot
+9  -67.0   -8.0    4.0  157.0  118.0   76.0      0  NotAssigned
+
+
+Saved variables at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/12876donor\_400Parcels\_7Network\_1mm.pkl
+
+Saved csv at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/12876donor\_400Parcels\_7Network\_1mm.csv
+
+Start to map genes from donor 12876 to Schaefer at 400 parcels and 7 networks at 2 mm resolution
+
+Mapping genes to image coordinates
+
+   mni\_x  mni\_y  mni\_z  img\_x  img\_y  img\_z parcel    community
+0  -58.0  -46.0    3.0   74.0   40.0   37.5    158      Default
+1  -61.0  -46.0  -19.0   75.5   40.0   26.5    151      Default
+2  -52.0  -46.0  -17.0   71.0   40.0   27.5     70     DorsAttn
+3  -60.0  -36.0    1.0   75.0   45.0   36.5    154      Default
+4  -69.0  -36.0    9.0   79.5   45.0   40.5      0  NotAssigned
+5  -58.0  -19.0  -19.0   74.0   53.5   26.5    150      Default
+6  -43.0   -8.0   13.0   66.5   59.0   42.5     35       SomMot
+7  -41.0   -9.0    5.0   65.5   58.5   38.5     35       SomMot
+8  -59.0   -8.0    5.0   74.5   59.0   38.5     32       SomMot
+9  -67.0   -8.0    4.0   78.5   59.0   38.0      0  NotAssigned
+
+
+Saved variables at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/12876donor\_400Parcels\_7Network\_2mm.pkl
+
+Saved csv at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/12876donor\_400Parcels\_7Network\_2mm.csv
+
+Start to map genes from donor 12876 to Schaefer at 400 parcels and 17 networks at 1 mm resolution
+
+Mapping genes to image coordinates
+
+   mni\_x  mni\_y  mni\_z  img\_x  img\_y  img\_z parcel    community
+0  -58.0  -46.0    3.0  148.0   80.0   75.0    171     DefaultB
+1  -61.0  -46.0  -19.0  151.0   80.0   53.0    134        ContB
+2  -52.0  -46.0  -17.0  142.0   80.0   55.0     62    DorsAttnA
+3  -60.0  -36.0    1.0  150.0   90.0   73.0    171     DefaultB
+4  -69.0  -36.0    9.0  159.0   90.0   81.0    197      TempPar
+5  -58.0  -19.0  -19.0  148.0  107.0   53.0    169     DefaultB
+6  -43.0   -8.0   13.0  133.0  118.0   85.0     47      SomMotB
+7  -41.0   -9.0    5.0  131.0  117.0   77.0     47      SomMotB
+8  -59.0   -8.0    5.0  149.0  118.0   77.0     45      SomMotB
+9  -67.0   -8.0    4.0  157.0  118.0   76.0      0  NotAssigned
+
+
+Saved variables at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/12876donor\_400Parcels\_17Network\_1mm.pkl
+
+Saved csv at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/12876donor\_400Parcels\_17Network\_1mm.csv
+
+Start to map genes from donor 12876 to Schaefer at 400 parcels and 17 networks at 2 mm resolution
+
+Mapping genes to image coordinates
+
+   mni\_x  mni\_y  mni\_z  img\_x  img\_y  img\_z parcel    community
+0  -58.0  -46.0    3.0   74.0   40.0   37.5    198      TempPar
+1  -61.0  -46.0  -19.0   75.5   40.0   26.5    134        ContB
+2  -52.0  -46.0  -17.0   71.0   40.0   27.5     62    DorsAttnA
+3  -60.0  -36.0    1.0   75.0   45.0   36.5    171     DefaultB
+4  -69.0  -36.0    9.0   79.5   45.0   40.5      0  NotAssigned
+5  -58.0  -19.0  -19.0   74.0   53.5   26.5    169     DefaultB
+6  -43.0   -8.0   13.0   66.5   59.0   42.5     47      SomMotB
+7  -41.0   -9.0    5.0   65.5   58.5   38.5     47      SomMotB
+8  -59.0   -8.0    5.0   74.5   59.0   38.5     44      SomMotB
+9  -67.0   -8.0    4.0   78.5   59.0   38.0      0  NotAssigned
+
+
+Saved variables at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/12876donor\_400Parcels\_17Network\_2mm.pkl
+
+Saved csv at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/12876donor\_400Parcels\_17Network\_2mm.csv
+
+Start to map genes from donor 12876 to Schaefer at 600 parcels and 7 networks at 1 mm resolution
+
+Mapping genes to image coordinates
+
+   mni\_x  mni\_y  mni\_z  img\_x  img\_y  img\_z parcel    community
+0  -58.0  -46.0    3.0  148.0   80.0   75.0    239      Default
+1  -61.0  -46.0  -19.0  151.0   80.0   53.0    232      Default
+2  -52.0  -46.0  -17.0  142.0   80.0   55.0    103     DorsAttn
+3  -60.0  -36.0    1.0  150.0   90.0   73.0    238      Default
+4  -69.0  -36.0    9.0  159.0   90.0   81.0     50       SomMot
+5  -58.0  -19.0  -19.0  148.0  107.0   53.0    230      Default
+6  -43.0   -8.0   13.0  133.0  118.0   85.0     55       SomMot
+7  -41.0   -9.0    5.0  131.0  117.0   77.0    148  SalVentAttn
+8  -59.0   -8.0    5.0  149.0  118.0   77.0     47       SomMot
+9  -67.0   -8.0    4.0  157.0  118.0   76.0      0  NotAssigned
+
+
+Saved variables at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/12876donor\_600Parcels\_7Network\_1mm.pkl
+
+Saved csv at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/12876donor\_600Parcels\_7Network\_1mm.csv
+
+Start to map genes from donor 12876 to Schaefer at 600 parcels and 7 networks at 2 mm resolution
+
+Mapping genes to image coordinates
+
+   mni\_x  mni\_y  mni\_z  img\_x  img\_y  img\_z parcel    community
+0  -58.0  -46.0    3.0   74.0   40.0   37.5    239      Default
+1  -61.0  -46.0  -19.0   75.5   40.0   26.5    232      Default
+2  -52.0  -46.0  -17.0   71.0   40.0   27.5    103     DorsAttn
+3  -60.0  -36.0    1.0   75.0   45.0   36.5    235      Default
+4  -69.0  -36.0    9.0   79.5   45.0   40.5      0  NotAssigned
+5  -58.0  -19.0  -19.0   74.0   53.5   26.5    230      Default
+6  -43.0   -8.0   13.0   66.5   59.0   42.5     54       SomMot
+7  -41.0   -9.0    5.0   65.5   58.5   38.5    148  SalVentAttn
+8  -59.0   -8.0    5.0   74.5   59.0   38.5     46       SomMot
+9  -67.0   -8.0    4.0   78.5   59.0   38.0      0  NotAssigned
+
+
+Saved variables at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/12876donor\_600Parcels\_7Network\_2mm.pkl
+
+Saved csv at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/12876donor\_600Parcels\_7Network\_2mm.csv
+
+Start to map genes from donor 12876 to Schaefer at 600 parcels and 17 networks at 1 mm resolution
+
+Mapping genes to image coordinates
+
+   mni\_x  mni\_y  mni\_z  img\_x  img\_y  img\_z parcel     community
+0  -58.0  -46.0    3.0  148.0   80.0   75.0    295       TempPar
+1  -61.0  -46.0  -19.0  151.0   80.0   53.0    206         ContB
+2  -52.0  -46.0  -17.0  142.0   80.0   55.0    187         ContA
+3  -60.0  -36.0    1.0  150.0   90.0   73.0    261      DefaultB
+4  -69.0  -36.0    9.0  159.0   90.0   81.0    297       TempPar
+5  -58.0  -19.0  -19.0  148.0  107.0   53.0    256      DefaultB
+6  -43.0   -8.0   13.0  133.0  118.0   85.0     75       SomMotB
+7  -41.0   -9.0    5.0  131.0  117.0   77.0    135  SalVentAttnA
+8  -59.0   -8.0    5.0  149.0  118.0   77.0     69       SomMotB
+9  -67.0   -8.0    4.0  157.0  118.0   76.0      0   NotAssigned
+
+
+Saved variables at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/12876donor\_600Parcels\_17Network\_1mm.pkl
+
+Saved csv at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/12876donor\_600Parcels\_17Network\_1mm.csv
+
+Start to map genes from donor 12876 to Schaefer at 600 parcels and 17 networks at 2 mm resolution
+
+Mapping genes to image coordinates
+
+   mni\_x  mni\_y  mni\_z  img\_x  img\_y  img\_z parcel     community
+0  -58.0  -46.0    3.0   74.0   40.0   37.5    295       TempPar
+1  -61.0  -46.0  -19.0   75.5   40.0   26.5    206         ContB
+2  -52.0  -46.0  -17.0   71.0   40.0   27.5    187         ContA
+3  -60.0  -36.0    1.0   75.0   45.0   36.5    259      DefaultB
+4  -69.0  -36.0    9.0   79.5   45.0   40.5      0   NotAssigned
+5  -58.0  -19.0  -19.0   74.0   53.5   26.5    256      DefaultB
+6  -43.0   -8.0   13.0   66.5   59.0   42.5    139  SalVentAttnA
+7  -41.0   -9.0    5.0   65.5   58.5   38.5    135  SalVentAttnA
+8  -59.0   -8.0    5.0   74.5   59.0   38.5     68       SomMotB
+9  -67.0   -8.0    4.0   78.5   59.0   38.0      0   NotAssigned
+
+
+Saved variables at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/12876donor\_600Parcels\_17Network\_2mm.pkl
+
+Saved csv at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/12876donor\_600Parcels\_17Network\_2mm.csv
+
+Start to map genes from donor 12876 to Schaefer at 800 parcels and 7 networks at 1 mm resolution
+
+Mapping genes to image coordinates
+
+   mni\_x  mni\_y  mni\_z  img\_x  img\_y  img\_z parcel    community
+0  -58.0  -46.0    3.0  148.0   80.0   75.0    313      Default
+1  -61.0  -46.0  -19.0  151.0   80.0   53.0    271         Cont
+2  -52.0  -46.0  -17.0  142.0   80.0   55.0    143     DorsAttn
+3  -60.0  -36.0    1.0  150.0   90.0   73.0    316      Default
+4  -69.0  -36.0    9.0  159.0   90.0   81.0     74       SomMot
+5  -58.0  -19.0  -19.0  148.0  107.0   53.0    306      Default
+6  -43.0   -8.0   13.0  133.0  118.0   85.0     78       SomMot
+7  -41.0   -9.0    5.0  131.0  117.0   77.0    202  SalVentAttn
+8  -59.0   -8.0    5.0  149.0  118.0   77.0     69       SomMot
+9  -67.0   -8.0    4.0  157.0  118.0   76.0      0  NotAssigned
+
+
+Saved variables at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/12876donor\_800Parcels\_7Network\_1mm.pkl
+
+Saved csv at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/12876donor\_800Parcels\_7Network\_1mm.csv
+
+Start to map genes from donor 12876 to Schaefer at 800 parcels and 7 networks at 2 mm resolution
+
+Mapping genes to image coordinates
+
+   mni\_x  mni\_y  mni\_z  img\_x  img\_y  img\_z parcel    community
+0  -58.0  -46.0    3.0   74.0   40.0   37.5    319      Default
+1  -61.0  -46.0  -19.0   75.5   40.0   26.5    271         Cont
+2  -52.0  -46.0  -17.0   71.0   40.0   27.5    143     DorsAttn
+3  -60.0  -36.0    1.0   75.0   45.0   36.5    313      Default
+4  -69.0  -36.0    9.0   79.5   45.0   40.5      0  NotAssigned
+5  -58.0  -19.0  -19.0   74.0   53.5   26.5    306      Default
+6  -43.0   -8.0   13.0   66.5   59.0   42.5    207  SalVentAttn
+7  -41.0   -9.0    5.0   65.5   58.5   38.5    202  SalVentAttn
+8  -59.0   -8.0    5.0   74.5   59.0   38.5     68       SomMot
+9  -67.0   -8.0    4.0   78.5   59.0   38.0      0  NotAssigned
+
+
+Saved variables at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/12876donor\_800Parcels\_7Network\_2mm.pkl
+
+Saved csv at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/12876donor\_800Parcels\_7Network\_2mm.csv
+
+Start to map genes from donor 12876 to Schaefer at 800 parcels and 17 networks at 1 mm resolution
+
+Mapping genes to image coordinates
+
+   mni\_x  mni\_y  mni\_z  img\_x  img\_y  img\_z parcel     community
+0  -58.0  -46.0    3.0  148.0   80.0   75.0    351      DefaultB
+1  -61.0  -46.0  -19.0  151.0   80.0   53.0    273         ContB
+2  -52.0  -46.0  -17.0  142.0   80.0   55.0    130     DorsAttnA
+3  -60.0  -36.0    1.0  150.0   90.0   73.0    353      DefaultB
+4  -69.0  -36.0    9.0  159.0   90.0   81.0    397       TempPar
+5  -58.0  -19.0  -19.0  148.0  107.0   53.0    346      DefaultB
+6  -43.0   -8.0   13.0  133.0  118.0   85.0    109       SomMotB
+7  -41.0   -9.0    5.0  131.0  117.0   77.0    181  SalVentAttnA
+8  -59.0   -8.0    5.0  149.0  118.0   77.0    101       SomMotB
+9  -67.0   -8.0    4.0  157.0  118.0   76.0      0   NotAssigned
+
+
+Saved variables at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/12876donor\_800Parcels\_17Network\_1mm.pkl
+
+Saved csv at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/12876donor\_800Parcels\_17Network\_1mm.csv
+
+Start to map genes from donor 12876 to Schaefer at 800 parcels and 17 networks at 2 mm resolution
+
+Mapping genes to image coordinates
+
+   mni\_x  mni\_y  mni\_z  img\_x  img\_y  img\_z parcel     community
+0  -58.0  -46.0    3.0   74.0   40.0   37.5    395       TempPar
+1  -61.0  -46.0  -19.0   75.5   40.0   26.5    273         ContB
+2  -52.0  -46.0  -17.0   71.0   40.0   27.5    130     DorsAttnA
+3  -60.0  -36.0    1.0   75.0   45.0   36.5    351      DefaultB
+4  -69.0  -36.0    9.0   79.5   45.0   40.5      0   NotAssigned
+5  -58.0  -19.0  -19.0   74.0   53.5   26.5    346      DefaultB
+6  -43.0   -8.0   13.0   66.5   59.0   42.5    185  SalVentAttnA
+7  -41.0   -9.0    5.0   65.5   58.5   38.5    181  SalVentAttnA
+8  -59.0   -8.0    5.0   74.5   59.0   38.5    100       SomMotB
+9  -67.0   -8.0    4.0   78.5   59.0   38.0      0   NotAssigned
+
+
+Saved variables at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/12876donor\_800Parcels\_17Network\_2mm.pkl
+
+Saved csv at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/12876donor\_800Parcels\_17Network\_2mm.csv
+
+Start to map genes from donor 14380 to Schaefer at 100 parcels and 7 networks at 1 mm resolution
+
+Mapping genes to image coordinates
+
+   mni\_x  mni\_y  mni\_z  img\_x  img\_y  img\_z parcel    community
+0  -13.0    3.0    1.0  103.0  129.0   73.0      0  NotAssigned
+1  -53.0   -6.0   -3.0  143.0  120.0   69.0     10       SomMot
+2  -16.0  -33.0  -18.0  106.0   93.0   54.0      1          Vis
+3  -17.0    4.0  -34.0  107.0  130.0   38.0      0  NotAssigned
+4  -23.0  -26.0  -18.0  113.0  100.0   54.0      0  NotAssigned
+5  -24.0    4.0  -42.0  114.0  130.0   30.0     32       Limbic
+6   -7.0  -67.0    1.0   97.0   59.0   73.0      3          Vis
+7  -29.0   26.0   47.0  119.0  152.0  119.0     48      Default
+8  -26.0    4.0  -45.0  116.0  130.0   27.0     32       Limbic
+9  -35.0   -7.0  -39.0  125.0  119.0   33.0     32       Limbic
+
+
+Saved variables at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/14380donor\_100Parcels\_7Network\_1mm.pkl
+
+Saved csv at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/14380donor\_100Parcels\_7Network\_1mm.csv
+
+Start to map genes from donor 14380 to Schaefer at 100 parcels and 7 networks at 2 mm resolution
+
+Mapping genes to image coordinates
+
+   mni\_x  mni\_y  mni\_z  img\_x  img\_y  img\_z parcel    community
+0  -13.0    3.0    1.0   51.5   64.5   36.5      0  NotAssigned
+1  -53.0   -6.0   -3.0   71.5   60.0   34.5     38      Default
+2  -16.0  -33.0  -18.0   53.0   46.5   27.0      1          Vis
+3  -17.0    4.0  -34.0   53.5   65.0   19.0      0  NotAssigned
+4  -23.0  -26.0  -18.0   56.5   50.0   27.0      0  NotAssigned
+5  -24.0    4.0  -42.0   57.0   65.0   15.0     32       Limbic
+6   -7.0  -67.0    1.0   48.5   29.5   36.5      3          Vis
+7  -29.0   26.0   47.0   59.5   76.0   59.5     48      Default
+8  -26.0    4.0  -45.0   58.0   65.0   13.5     32       Limbic
+9  -35.0   -7.0  -39.0   62.5   59.5   16.5     32       Limbic
+
+
+Saved variables at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/14380donor\_100Parcels\_7Network\_2mm.pkl
+
+Saved csv at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/14380donor\_100Parcels\_7Network\_2mm.csv
+
+Start to map genes from donor 14380 to Schaefer at 100 parcels and 17 networks at 1 mm resolution
+
+Mapping genes to image coordinates
+
+   mni\_x  mni\_y  mni\_z  img\_x  img\_y  img\_z parcel    community
+0  -13.0    3.0    1.0  103.0  129.0   73.0      0  NotAssigned
+1  -53.0   -6.0   -3.0  143.0  120.0   69.0     10      SomMotB
+2  -16.0  -33.0  -18.0  106.0   93.0   54.0     49     DefaultC
+3  -17.0    4.0  -34.0  107.0  130.0   38.0      0  NotAssigned
+4  -23.0  -26.0  -18.0  113.0  100.0   54.0      0  NotAssigned
+5  -24.0    4.0  -42.0  114.0  130.0   30.0     29       Limbic
+6   -7.0  -67.0    1.0   97.0   59.0   73.0      5      VisPeri
+7  -29.0   26.0   47.0  119.0  152.0  119.0     38     DefaultA
+8  -26.0    4.0  -45.0  116.0  130.0   27.0     29       Limbic
+9  -35.0   -7.0  -39.0  125.0  119.0   33.0     29       Limbic
+
+
+Saved variables at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/14380donor\_100Parcels\_17Network\_1mm.pkl
+
+Saved csv at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/14380donor\_100Parcels\_17Network\_1mm.csv
+
+Start to map genes from donor 14380 to Schaefer at 100 parcels and 17 networks at 2 mm resolution
+
+Mapping genes to image coordinates
+
+   mni\_x  mni\_y  mni\_z  img\_x  img\_y  img\_z parcel    community
+0  -13.0    3.0    1.0   51.5   64.5   36.5      0  NotAssigned
+1  -53.0   -6.0   -3.0   71.5   60.0   34.5     41     DefaultB
+2  -16.0  -33.0  -18.0   53.0   46.5   27.0     49     DefaultC
+3  -17.0    4.0  -34.0   53.5   65.0   19.0      0  NotAssigned
+4  -23.0  -26.0  -18.0   56.5   50.0   27.0      0  NotAssigned
+5  -24.0    4.0  -42.0   57.0   65.0   15.0     29       Limbic
+6   -7.0  -67.0    1.0   48.5   29.5   36.5      5      VisPeri
+7  -29.0   26.0   47.0   59.5   76.0   59.5     38     DefaultA
+8  -26.0    4.0  -45.0   58.0   65.0   13.5     29       Limbic
+9  -35.0   -7.0  -39.0   62.5   59.5   16.5     29       Limbic
+
+
+Saved variables at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/14380donor\_100Parcels\_17Network\_2mm.pkl
+
+Saved csv at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/14380donor\_100Parcels\_17Network\_2mm.csv
+
+Start to map genes from donor 14380 to Schaefer at 200 parcels and 7 networks at 1 mm resolution
+
+Mapping genes to image coordinates
+
+   mni\_x  mni\_y  mni\_z  img\_x  img\_y  img\_z parcel    community
+0  -13.0    3.0    1.0  103.0  129.0   73.0      0  NotAssigned
+1  -53.0   -6.0   -3.0  143.0  120.0   69.0     15       SomMot
+2  -16.0  -33.0  -18.0  106.0   93.0   54.0    100      Default
+3  -17.0    4.0  -34.0  107.0  130.0   38.0      0  NotAssigned
+4  -23.0  -26.0  -18.0  113.0  100.0   54.0      0  NotAssigned
+5  -24.0    4.0  -42.0  114.0  130.0   30.0     57       Limbic
+6   -7.0  -67.0    1.0   97.0   59.0   73.0      4          Vis
+7  -29.0   26.0   47.0  119.0  152.0  119.0     94      Default
+8  -26.0    4.0  -45.0  116.0  130.0   27.0     57       Limbic
+9  -35.0   -7.0  -39.0  125.0  119.0   33.0     57       Limbic
+
+
+Saved variables at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/14380donor\_200Parcels\_7Network\_1mm.pkl
+
+Saved csv at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/14380donor\_200Parcels\_7Network\_1mm.csv
+
+Start to map genes from donor 14380 to Schaefer at 200 parcels and 7 networks at 2 mm resolution
+
+Mapping genes to image coordinates
+
+   mni\_x  mni\_y  mni\_z  img\_x  img\_y  img\_z parcel    community
+0  -13.0    3.0    1.0   51.5   64.5   36.5      0  NotAssigned
+1  -53.0   -6.0   -3.0   71.5   60.0   34.5     76      Default
+2  -16.0  -33.0  -18.0   53.0   46.5   27.0    100      Default
+3  -17.0    4.0  -34.0   53.5   65.0   19.0      0  NotAssigned
+4  -23.0  -26.0  -18.0   56.5   50.0   27.0      0  NotAssigned
+5  -24.0    4.0  -42.0   57.0   65.0   15.0     57       Limbic
+6   -7.0  -67.0    1.0   48.5   29.5   36.5      4          Vis
+7  -29.0   26.0   47.0   59.5   76.0   59.5     94      Default
+8  -26.0    4.0  -45.0   58.0   65.0   13.5     57       Limbic
+9  -35.0   -7.0  -39.0   62.5   59.5   16.5     57       Limbic
+
+
+Saved variables at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/14380donor\_200Parcels\_7Network\_2mm.pkl
+
+Saved csv at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/14380donor\_200Parcels\_7Network\_2mm.csv
+
+Start to map genes from donor 14380 to Schaefer at 200 parcels and 17 networks at 1 mm resolution
+
+Mapping genes to image coordinates
+
+   mni\_x  mni\_y  mni\_z  img\_x  img\_y  img\_z parcel    community
+0  -13.0    3.0    1.0  103.0  129.0   73.0      0  NotAssigned
+1  -53.0   -6.0   -3.0  143.0  120.0   69.0     21      SomMotB
+2  -16.0  -33.0  -18.0  106.0   93.0   54.0     98     DefaultC
+3  -17.0    4.0  -34.0  107.0  130.0   38.0      0  NotAssigned
+4  -23.0  -26.0  -18.0  113.0  100.0   54.0      0  NotAssigned
+5  -24.0    4.0  -42.0  114.0  130.0   30.0     53       Limbic
+6   -7.0  -67.0    1.0   97.0   59.0   73.0      8      VisPeri
+7  -29.0   26.0   47.0  119.0  152.0  119.0     76     DefaultA
+8  -26.0    4.0  -45.0  116.0  130.0   27.0     53       Limbic
+9  -35.0   -7.0  -39.0  125.0  119.0   33.0     53       Limbic
+
+
+Saved variables at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/14380donor\_200Parcels\_17Network\_1mm.pkl
+
+Saved csv at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/14380donor\_200Parcels\_17Network\_1mm.csv
+
+Start to map genes from donor 14380 to Schaefer at 200 parcels and 17 networks at 2 mm resolution
+
+Mapping genes to image coordinates
+
+   mni\_x  mni\_y  mni\_z  img\_x  img\_y  img\_z parcel    community
+0  -13.0    3.0    1.0   51.5   64.5   36.5      0  NotAssigned
+1  -53.0   -6.0   -3.0   71.5   60.0   34.5     85     DefaultB
+2  -16.0  -33.0  -18.0   53.0   46.5   27.0     98     DefaultC
+3  -17.0    4.0  -34.0   53.5   65.0   19.0      0  NotAssigned
+4  -23.0  -26.0  -18.0   56.5   50.0   27.0      0  NotAssigned
+5  -24.0    4.0  -42.0   57.0   65.0   15.0     53       Limbic
+6   -7.0  -67.0    1.0   48.5   29.5   36.5      8      VisPeri
+7  -29.0   26.0   47.0   59.5   76.0   59.5     76     DefaultA
+8  -26.0    4.0  -45.0   58.0   65.0   13.5     53       Limbic
+9  -35.0   -7.0  -39.0   62.5   59.5   16.5     53       Limbic
+
+
+Saved variables at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/14380donor\_200Parcels\_17Network\_2mm.pkl
+
+Saved csv at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/14380donor\_200Parcels\_17Network\_2mm.csv
+
+Start to map genes from donor 14380 to Schaefer at 400 parcels and 7 networks at 1 mm resolution
+
+Mapping genes to image coordinates
+
+   mni\_x  mni\_y  mni\_z  img\_x  img\_y  img\_z parcel    community
+0  -13.0    3.0    1.0  103.0  129.0   73.0      0  NotAssigned
+1  -53.0   -6.0   -3.0  143.0  120.0   69.0     32       SomMot
+2  -16.0  -33.0  -18.0  106.0   93.0   54.0      7          Vis
+3  -17.0    4.0  -34.0  107.0  130.0   38.0      0  NotAssigned
+4  -23.0  -26.0  -18.0  113.0  100.0   54.0      0  NotAssigned
+5  -24.0    4.0  -42.0  114.0  130.0   30.0    120       Limbic
+6   -7.0  -67.0    1.0   97.0   59.0   73.0     10          Vis
+7  -29.0   26.0   47.0  119.0  152.0  119.0    181      Default
+8  -26.0    4.0  -45.0  116.0  130.0   27.0    120       Limbic
+9  -35.0   -7.0  -39.0  125.0  119.0   33.0    119       Limbic
+
+
+Saved variables at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/14380donor\_400Parcels\_7Network\_1mm.pkl
+
+Saved csv at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/14380donor\_400Parcels\_7Network\_1mm.csv
+
+Start to map genes from donor 14380 to Schaefer at 400 parcels and 7 networks at 2 mm resolution
+
+Mapping genes to image coordinates
+
+   mni\_x  mni\_y  mni\_z  img\_x  img\_y  img\_z parcel    community
+0  -13.0    3.0    1.0   51.5   64.5   36.5      0  NotAssigned
+1  -53.0   -6.0   -3.0   71.5   60.0   34.5    156      Default
+2  -16.0  -33.0  -18.0   53.0   46.5   27.0      7          Vis
+3  -17.0    4.0  -34.0   53.5   65.0   19.0      0  NotAssigned
+4  -23.0  -26.0  -18.0   56.5   50.0   27.0      0  NotAssigned
+5  -24.0    4.0  -42.0   57.0   65.0   15.0    120       Limbic
+6   -7.0  -67.0    1.0   48.5   29.5   36.5     10          Vis
+7  -29.0   26.0   47.0   59.5   76.0   59.5    181      Default
+8  -26.0    4.0  -45.0   58.0   65.0   13.5    120       Limbic
+9  -35.0   -7.0  -39.0   62.5   59.5   16.5    119       Limbic
+
+
+Saved variables at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/14380donor\_400Parcels\_7Network\_2mm.pkl
+
+Saved csv at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/14380donor\_400Parcels\_7Network\_2mm.csv
+
+Start to map genes from donor 14380 to Schaefer at 400 parcels and 17 networks at 1 mm resolution
+
+Mapping genes to image coordinates
+
+   mni\_x  mni\_y  mni\_z  img\_x  img\_y  img\_z parcel    community
+0  -13.0    3.0    1.0  103.0  129.0   73.0      0  NotAssigned
+1  -53.0   -6.0   -3.0  143.0  120.0   69.0     44      SomMotB
+2  -16.0  -33.0  -18.0  106.0   93.0   54.0    194     DefaultC
+3  -17.0    4.0  -34.0  107.0  130.0   38.0      0  NotAssigned
+4  -23.0  -26.0  -18.0  113.0  100.0   54.0      0  NotAssigned
+5  -24.0    4.0  -42.0  114.0  130.0   30.0    115       Limbic
+6   -7.0  -67.0    1.0   97.0   59.0   73.0     14      VisPeri
+7  -29.0   26.0   47.0  119.0  152.0  119.0    151     DefaultA
+8  -26.0    4.0  -45.0  116.0  130.0   27.0    115       Limbic
+9  -35.0   -7.0  -39.0  125.0  119.0   33.0    114       Limbic
+
+
+Saved variables at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/14380donor\_400Parcels\_17Network\_1mm.pkl
+
+Saved csv at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/14380donor\_400Parcels\_17Network\_1mm.csv
+
+Start to map genes from donor 14380 to Schaefer at 400 parcels and 17 networks at 2 mm resolution
+
+Mapping genes to image coordinates
+
+   mni\_x  mni\_y  mni\_z  img\_x  img\_y  img\_z parcel    community
+0  -13.0    3.0    1.0   51.5   64.5   36.5      0  NotAssigned
+1  -53.0   -6.0   -3.0   71.5   60.0   34.5    196      TempPar
+2  -16.0  -33.0  -18.0   53.0   46.5   27.0    194     DefaultC
+3  -17.0    4.0  -34.0   53.5   65.0   19.0      0  NotAssigned
+4  -23.0  -26.0  -18.0   56.5   50.0   27.0      0  NotAssigned
+5  -24.0    4.0  -42.0   57.0   65.0   15.0    115       Limbic
+6   -7.0  -67.0    1.0   48.5   29.5   36.5     14      VisPeri
+7  -29.0   26.0   47.0   59.5   76.0   59.5    151     DefaultA
+8  -26.0    4.0  -45.0   58.0   65.0   13.5    115       Limbic
+9  -35.0   -7.0  -39.0   62.5   59.5   16.5    114       Limbic
+
+
+Saved variables at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/14380donor\_400Parcels\_17Network\_2mm.pkl
+
+Saved csv at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/14380donor\_400Parcels\_17Network\_2mm.csv
+
+Start to map genes from donor 14380 to Schaefer at 600 parcels and 7 networks at 1 mm resolution
+
+Mapping genes to image coordinates
+
+   mni\_x  mni\_y  mni\_z  img\_x  img\_y  img\_z parcel    community
+0  -13.0    3.0    1.0  103.0  129.0   73.0      0  NotAssigned
+1  -53.0   -6.0   -3.0  143.0  120.0   69.0     46       SomMot
+2  -16.0  -33.0  -18.0  106.0   93.0   54.0    300      Default
+3  -17.0    4.0  -34.0  107.0  130.0   38.0      0  NotAssigned
+4  -23.0  -26.0  -18.0  113.0  100.0   54.0      0  NotAssigned
+5  -24.0    4.0  -42.0  114.0  130.0   30.0    179       Limbic
+6   -7.0  -67.0    1.0   97.0   59.0   73.0     12          Vis
+7  -29.0   26.0   47.0  119.0  152.0  119.0    275      Default
+8  -26.0    4.0  -45.0  116.0  130.0   27.0    179       Limbic
+9  -35.0   -7.0  -39.0  125.0  119.0   33.0    179       Limbic
+
+
+Saved variables at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/14380donor\_600Parcels\_7Network\_1mm.pkl
+
+Saved csv at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/14380donor\_600Parcels\_7Network\_1mm.csv
+
+Start to map genes from donor 14380 to Schaefer at 600 parcels and 7 networks at 2 mm resolution
+
+Mapping genes to image coordinates
+
+   mni\_x  mni\_y  mni\_z  img\_x  img\_y  img\_z parcel    community
+0  -13.0    3.0    1.0   51.5   64.5   36.5      0  NotAssigned
+1  -53.0   -6.0   -3.0   71.5   60.0   34.5    234      Default
+2  -16.0  -33.0  -18.0   53.0   46.5   27.0    300      Default
+3  -17.0    4.0  -34.0   53.5   65.0   19.0      0  NotAssigned
+4  -23.0  -26.0  -18.0   56.5   50.0   27.0      0  NotAssigned
+5  -24.0    4.0  -42.0   57.0   65.0   15.0    179       Limbic
+6   -7.0  -67.0    1.0   48.5   29.5   36.5     12          Vis
+7  -29.0   26.0   47.0   59.5   76.0   59.5    275      Default
+8  -26.0    4.0  -45.0   58.0   65.0   13.5    179       Limbic
+9  -35.0   -7.0  -39.0   62.5   59.5   16.5    179       Limbic
+
+
+Saved variables at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/14380donor\_600Parcels\_7Network\_2mm.pkl
+
+Saved csv at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/14380donor\_600Parcels\_7Network\_2mm.csv
+
+Start to map genes from donor 14380 to Schaefer at 600 parcels and 17 networks at 1 mm resolution
+
+Mapping genes to image coordinates
+
+   mni\_x  mni\_y  mni\_z  img\_x  img\_y  img\_z parcel    community
+0  -13.0    3.0    1.0  103.0  129.0   73.0      0  NotAssigned
+1  -53.0   -6.0   -3.0  143.0  120.0   69.0     68      SomMotB
+2  -16.0  -33.0  -18.0  106.0   93.0   54.0    291     DefaultC
+3  -17.0    4.0  -34.0  107.0  130.0   38.0      0  NotAssigned
+4  -23.0  -26.0  -18.0  113.0  100.0   54.0      0  NotAssigned
+5  -24.0    4.0  -42.0  114.0  130.0   30.0    175       Limbic
+6   -7.0  -67.0    1.0   97.0   59.0   73.0     23      VisPeri
+7  -29.0   26.0   47.0  119.0  152.0  119.0    233     DefaultA
+8  -26.0    4.0  -45.0  116.0  130.0   27.0    175       Limbic
+9  -35.0   -7.0  -39.0  125.0  119.0   33.0    175       Limbic
+
+
+Saved variables at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/14380donor\_600Parcels\_17Network\_1mm.pkl
+
+Saved csv at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/14380donor\_600Parcels\_17Network\_1mm.csv
+
+Start to map genes from donor 14380 to Schaefer at 600 parcels and 17 networks at 2 mm resolution
+
+Mapping genes to image coordinates
+
+   mni\_x  mni\_y  mni\_z  img\_x  img\_y  img\_z parcel    community
+0  -13.0    3.0    1.0   51.5   64.5   36.5      0  NotAssigned
+1  -53.0   -6.0   -3.0   71.5   60.0   34.5    293      TempPar
+2  -16.0  -33.0  -18.0   53.0   46.5   27.0    291     DefaultC
+3  -17.0    4.0  -34.0   53.5   65.0   19.0      0  NotAssigned
+4  -23.0  -26.0  -18.0   56.5   50.0   27.0      0  NotAssigned
+5  -24.0    4.0  -42.0   57.0   65.0   15.0    175       Limbic
+6   -7.0  -67.0    1.0   48.5   29.5   36.5     23      VisPeri
+7  -29.0   26.0   47.0   59.5   76.0   59.5    233     DefaultA
+8  -26.0    4.0  -45.0   58.0   65.0   13.5    175       Limbic
+9  -35.0   -7.0  -39.0   62.5   59.5   16.5    175       Limbic
+
+
+Saved variables at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/14380donor\_600Parcels\_17Network\_2mm.pkl
+
+Saved csv at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/14380donor\_600Parcels\_17Network\_2mm.csv
+
+Start to map genes from donor 14380 to Schaefer at 800 parcels and 7 networks at 1 mm resolution
+
+Mapping genes to image coordinates
+
+   mni\_x  mni\_y  mni\_z  img\_x  img\_y  img\_z parcel    community
+0  -13.0    3.0    1.0  103.0  129.0   73.0      0  NotAssigned
+1  -53.0   -6.0   -3.0  143.0  120.0   69.0     68       SomMot
+2  -16.0  -33.0  -18.0  106.0   93.0   54.0     11          Vis
+3  -17.0    4.0  -34.0  107.0  130.0   38.0      0  NotAssigned
+4  -23.0  -26.0  -18.0  113.0  100.0   54.0      0  NotAssigned
+5  -24.0    4.0  -42.0  114.0  130.0   30.0    242       Limbic
+6   -7.0  -67.0    1.0   97.0   59.0   73.0     18          Vis
+7  -29.0   26.0   47.0  119.0  152.0  119.0    359      Default
+8  -26.0    4.0  -45.0  116.0  130.0   27.0    242       Limbic
+9  -35.0   -7.0  -39.0  125.0  119.0   33.0    242       Limbic
+
+
+Saved variables at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/14380donor\_800Parcels\_7Network\_1mm.pkl
+
+Saved csv at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/14380donor\_800Parcels\_7Network\_1mm.csv
+
+Start to map genes from donor 14380 to Schaefer at 800 parcels and 7 networks at 2 mm resolution
+
+Mapping genes to image coordinates
+
+   mni\_x  mni\_y  mni\_z  img\_x  img\_y  img\_z parcel    community
+0  -13.0    3.0    1.0   51.5   64.5   36.5      0  NotAssigned
+1  -53.0   -6.0   -3.0   71.5   60.0   34.5    311      Default
+2  -16.0  -33.0  -18.0   53.0   46.5   27.0     11          Vis
+3  -17.0    4.0  -34.0   53.5   65.0   19.0      0  NotAssigned
+4  -23.0  -26.0  -18.0   56.5   50.0   27.0      0  NotAssigned
+5  -24.0    4.0  -42.0   57.0   65.0   15.0    242       Limbic
+6   -7.0  -67.0    1.0   48.5   29.5   36.5     18          Vis
+7  -29.0   26.0   47.0   59.5   76.0   59.5    359      Default
+8  -26.0    4.0  -45.0   58.0   65.0   13.5    242       Limbic
+9  -35.0   -7.0  -39.0   62.5   59.5   16.5    242       Limbic
+
+
+Saved variables at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/14380donor\_800Parcels\_7Network\_2mm.pkl
+
+Saved csv at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/14380donor\_800Parcels\_7Network\_2mm.csv
+
+Start to map genes from donor 14380 to Schaefer at 800 parcels and 17 networks at 1 mm resolution
+
+Mapping genes to image coordinates
+
+   mni\_x  mni\_y  mni\_z  img\_x  img\_y  img\_z parcel    community
+0  -13.0    3.0    1.0  103.0  129.0   73.0      0  NotAssigned
+1  -53.0   -6.0   -3.0  143.0  120.0   69.0    100      SomMotB
+2  -16.0  -33.0  -18.0  106.0   93.0   54.0    389     DefaultC
+3  -17.0    4.0  -34.0  107.0  130.0   38.0      0  NotAssigned
+4  -23.0  -26.0  -18.0  113.0  100.0   54.0      0  NotAssigned
+5  -24.0    4.0  -42.0  114.0  130.0   30.0    234       Limbic
+6   -7.0  -67.0    1.0   97.0   59.0   73.0     29      VisPeri
+7  -29.0   26.0   47.0  119.0  152.0  119.0    312     DefaultA
+8  -26.0    4.0  -45.0  116.0  130.0   27.0    234       Limbic
+9  -35.0   -7.0  -39.0  125.0  119.0   33.0    234       Limbic
+
+
+Saved variables at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/14380donor\_800Parcels\_17Network\_1mm.pkl
+
+Saved csv at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/14380donor\_800Parcels\_17Network\_1mm.csv
+
+Start to map genes from donor 14380 to Schaefer at 800 parcels and 17 networks at 2 mm resolution
+
+Mapping genes to image coordinates
+
+   mni\_x  mni\_y  mni\_z  img\_x  img\_y  img\_z parcel    community
+0  -13.0    3.0    1.0   51.5   64.5   36.5      0  NotAssigned
+1  -53.0   -6.0   -3.0   71.5   60.0   34.5    391      TempPar
+2  -16.0  -33.0  -18.0   53.0   46.5   27.0    389     DefaultC
+3  -17.0    4.0  -34.0   53.5   65.0   19.0      0  NotAssigned
+4  -23.0  -26.0  -18.0   56.5   50.0   27.0      0  NotAssigned
+5  -24.0    4.0  -42.0   57.0   65.0   15.0    234       Limbic
+6   -7.0  -67.0    1.0   48.5   29.5   36.5     29      VisPeri
+7  -29.0   26.0   47.0   59.5   76.0   59.5    312     DefaultA
+8  -26.0    4.0  -45.0   58.0   65.0   13.5    234       Limbic
+9  -35.0   -7.0  -39.0   62.5   59.5   16.5    234       Limbic
+
+
+Saved variables at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/14380donor\_800Parcels\_17Network\_2mm.pkl
+
+Saved csv at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/14380donor\_800Parcels\_17Network\_2mm.csv
+
+Start to map genes from donor 15496 to Schaefer at 100 parcels and 7 networks at 1 mm resolution
+
+Mapping genes to image coordinates
+
+   mni\_x  mni\_y  mni\_z  img\_x  img\_y  img\_z parcel    community
+0  -50.0  -80.0   21.0  140.0   46.0   93.0      8          Vis
+1  -18.0  -53.0   -2.0  108.0   73.0   70.0      6          Vis
+2  -47.0  -27.0   50.0  137.0   99.0  122.0     19     DorsAttn
+3  -68.0  -28.0   30.0  158.0   98.0  102.0     24  SalVentAttn
+4  -58.0  -28.0   45.0  148.0   98.0  117.0     17     DorsAttn
+5  -34.0   -2.0  -38.0  124.0  124.0   34.0     32       Limbic
+6  -63.0   -3.0  -17.0  153.0  123.0   55.0     38      Default
+7   -4.0   20.0   20.0   94.0  146.0   92.0     28  SalVentAttn
+8  -52.0   17.0  -13.0  142.0  143.0   59.0     38      Default
+9   -4.0   60.0  -14.0   94.0  186.0   58.0     44      Default
+
+
+Saved variables at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/15496donor\_100Parcels\_7Network\_1mm.pkl
+
+Saved csv at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/15496donor\_100Parcels\_7Network\_1mm.csv
+
+Start to map genes from donor 15496 to Schaefer at 100 parcels and 7 networks at 2 mm resolution
+
+Mapping genes to image coordinates
+
+   mni\_x  mni\_y  mni\_z  img\_x  img\_y  img\_z parcel    community
+0  -50.0  -80.0   21.0   70.0   23.0   46.5      8          Vis
+1  -18.0  -53.0   -2.0   54.0   36.5   35.0      6          Vis
+2  -47.0  -27.0   50.0   68.5   49.5   61.0     19     DorsAttn
+3  -68.0  -28.0   30.0   79.0   49.0   51.0     24  SalVentAttn
+4  -58.0  -28.0   45.0   74.0   49.0   58.5     17     DorsAttn
+5  -34.0   -2.0  -38.0   62.0   62.0   17.0     32       Limbic
+6  -63.0   -3.0  -17.0   76.5   61.5   27.5     38      Default
+7   -4.0   20.0   20.0   47.0   73.0   46.0     28  SalVentAttn
+8  -52.0   17.0  -13.0   71.0   71.5   29.5      0  NotAssigned
+9   -4.0   60.0  -14.0   47.0   93.0   29.0     44      Default
+
+
+Saved variables at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/15496donor\_100Parcels\_7Network\_2mm.pkl
+
+Saved csv at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/15496donor\_100Parcels\_7Network\_2mm.csv
+
+Start to map genes from donor 15496 to Schaefer at 100 parcels and 17 networks at 1 mm resolution
+
+Mapping genes to image coordinates
+
+   mni\_x  mni\_y  mni\_z  img\_x  img\_y  img\_z parcel     community
+0  -50.0  -80.0   21.0  140.0   46.0   93.0      4       VisCent
+1  -18.0  -53.0   -2.0  108.0   73.0   70.0      6       VisPeri
+2  -47.0  -27.0   50.0  137.0   99.0  122.0     18     DorsAttnB
+3  -68.0  -28.0   30.0  158.0   98.0  102.0     21  SalVentAttnA
+4  -58.0  -28.0   45.0  148.0   98.0  117.0     17     DorsAttnB
+5  -34.0   -2.0  -38.0  124.0  124.0   34.0     29        Limbic
+6  -63.0   -3.0  -17.0  153.0  123.0   55.0     41      DefaultB
+7   -4.0   20.0   20.0   94.0  146.0   92.0     27  SalVentAttnB
+8  -52.0   17.0  -13.0  142.0  143.0   59.0     41      DefaultB
+9   -4.0   60.0  -14.0   94.0  186.0   58.0     40      DefaultA
+
+
+Saved variables at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/15496donor\_100Parcels\_17Network\_1mm.pkl
+
+Saved csv at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/15496donor\_100Parcels\_17Network\_1mm.csv
+
+Start to map genes from donor 15496 to Schaefer at 100 parcels and 17 networks at 2 mm resolution
+
+Mapping genes to image coordinates
+
+   mni\_x  mni\_y  mni\_z  img\_x  img\_y  img\_z parcel     community
+0  -50.0  -80.0   21.0   70.0   23.0   46.5      4       VisCent
+1  -18.0  -53.0   -2.0   54.0   36.5   35.0      6       VisPeri
+2  -47.0  -27.0   50.0   68.5   49.5   61.0     18     DorsAttnB
+3  -68.0  -28.0   30.0   79.0   49.0   51.0     21  SalVentAttnA
+4  -58.0  -28.0   45.0   74.0   49.0   58.5     17     DorsAttnB
+5  -34.0   -2.0  -38.0   62.0   62.0   17.0     29        Limbic
+6  -63.0   -3.0  -17.0   76.5   61.5   27.5     41      DefaultB
+7   -4.0   20.0   20.0   47.0   73.0   46.0     27  SalVentAttnB
+8  -52.0   17.0  -13.0   71.0   71.5   29.5      0   NotAssigned
+9   -4.0   60.0  -14.0   47.0   93.0   29.0     40      DefaultA
+
+
+Saved variables at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/15496donor\_100Parcels\_17Network\_2mm.pkl
+
+Saved csv at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/15496donor\_100Parcels\_17Network\_2mm.csv
+
+Start to map genes from donor 15496 to Schaefer at 200 parcels and 7 networks at 1 mm resolution
+
+Mapping genes to image coordinates
+
+   mni\_x  mni\_y  mni\_z  img\_x  img\_y  img\_z parcel    community
+0  -50.0  -80.0   21.0  140.0   46.0   93.0     11          Vis
+1  -18.0  -53.0   -2.0  108.0   73.0   70.0     10          Vis
+2  -47.0  -27.0   50.0  137.0   99.0  122.0     23       SomMot
+3  -68.0  -28.0   30.0  158.0   98.0  102.0     45  SalVentAttn
+4  -58.0  -28.0   45.0  148.0   98.0  117.0     34     DorsAttn
+5  -34.0   -2.0  -38.0  124.0  124.0   34.0     57       Limbic
+6  -63.0   -3.0  -17.0  153.0  123.0   55.0     76      Default
+7   -4.0   20.0   20.0   94.0  146.0   92.0     73         Cont
+8  -52.0   17.0  -13.0  142.0  143.0   59.0     60       Limbic
+9   -4.0   60.0  -14.0   94.0  186.0   58.0     86      Default
+
+
+Saved variables at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/15496donor\_200Parcels\_7Network\_1mm.pkl
+
+Saved csv at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/15496donor\_200Parcels\_7Network\_1mm.csv
+
+Start to map genes from donor 15496 to Schaefer at 200 parcels and 7 networks at 2 mm resolution
+
+Mapping genes to image coordinates
+
+   mni\_x  mni\_y  mni\_z  img\_x  img\_y  img\_z parcel    community
+0  -50.0  -80.0   21.0   70.0   23.0   46.5     11          Vis
+1  -18.0  -53.0   -2.0   54.0   36.5   35.0     10          Vis
+2  -47.0  -27.0   50.0   68.5   49.5   61.0     23       SomMot
+3  -68.0  -28.0   30.0   79.0   49.0   51.0     45  SalVentAttn
+4  -58.0  -28.0   45.0   74.0   49.0   58.5     34     DorsAttn
+5  -34.0   -2.0  -38.0   62.0   62.0   17.0     57       Limbic
+6  -63.0   -3.0  -17.0   76.5   61.5   27.5     76      Default
+7   -4.0   20.0   20.0   47.0   73.0   46.0     73         Cont
+8  -52.0   17.0  -13.0   71.0   71.5   29.5      0  NotAssigned
+9   -4.0   60.0  -14.0   47.0   93.0   29.0     86      Default
+
+
+Saved variables at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/15496donor\_200Parcels\_7Network\_2mm.pkl
+
+Saved csv at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/15496donor\_200Parcels\_7Network\_2mm.csv
+
+Start to map genes from donor 15496 to Schaefer at 200 parcels and 17 networks at 1 mm resolution
+
+Mapping genes to image coordinates
+
+   mni\_x  mni\_y  mni\_z  img\_x  img\_y  img\_z parcel     community
+0  -50.0  -80.0   21.0  140.0   46.0   93.0      5       VisCent
+1  -18.0  -53.0   -2.0  108.0   73.0   70.0     10       VisPeri
+2  -47.0  -27.0   50.0  137.0   99.0  122.0     14       SomMotA
+3  -68.0  -28.0   30.0  158.0   98.0  102.0     40  SalVentAttnA
+4  -58.0  -28.0   45.0  148.0   98.0  117.0     35     DorsAttnB
+5  -34.0   -2.0  -38.0  124.0  124.0   34.0     53        Limbic
+6  -63.0   -3.0  -17.0  153.0  123.0   55.0     85      DefaultB
+7   -4.0   20.0   20.0   94.0  146.0   92.0     66         ContA
+8  -52.0   17.0  -13.0  142.0  143.0   59.0     56        Limbic
+9   -4.0   60.0  -14.0   94.0  186.0   58.0     81      DefaultA
+
+
+Saved variables at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/15496donor\_200Parcels\_17Network\_1mm.pkl
+
+Saved csv at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/15496donor\_200Parcels\_17Network\_1mm.csv
+
+Start to map genes from donor 15496 to Schaefer at 200 parcels and 17 networks at 2 mm resolution
+
+Mapping genes to image coordinates
+
+   mni\_x  mni\_y  mni\_z  img\_x  img\_y  img\_z parcel     community
+0  -50.0  -80.0   21.0   70.0   23.0   46.5      5       VisCent
+1  -18.0  -53.0   -2.0   54.0   36.5   35.0     10       VisPeri
+2  -47.0  -27.0   50.0   68.5   49.5   61.0     14       SomMotA
+3  -68.0  -28.0   30.0   79.0   49.0   51.0     40  SalVentAttnA
+4  -58.0  -28.0   45.0   74.0   49.0   58.5     35     DorsAttnB
+5  -34.0   -2.0  -38.0   62.0   62.0   17.0     53        Limbic
+6  -63.0   -3.0  -17.0   76.5   61.5   27.5     85      DefaultB
+7   -4.0   20.0   20.0   47.0   73.0   46.0     66         ContA
+8  -52.0   17.0  -13.0   71.0   71.5   29.5      0   NotAssigned
+9   -4.0   60.0  -14.0   47.0   93.0   29.0     81      DefaultA
+
+
+Saved variables at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/15496donor\_200Parcels\_17Network\_2mm.pkl
+
+Saved csv at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/15496donor\_200Parcels\_17Network\_2mm.csv
+
+Start to map genes from donor 15496 to Schaefer at 400 parcels and 7 networks at 1 mm resolution
+
+Mapping genes to image coordinates
+
+   mni\_x  mni\_y  mni\_z  img\_x  img\_y  img\_z parcel    community
+0  -50.0  -80.0   21.0  140.0   46.0   93.0     23          Vis
+1  -18.0  -53.0   -2.0  108.0   73.0   70.0     16          Vis
+2  -47.0  -27.0   50.0  137.0   99.0  122.0     52       SomMot
+3  -68.0  -28.0   30.0  158.0   98.0  102.0     94  SalVentAttn
+4  -58.0  -28.0   45.0  148.0   98.0  117.0     74     DorsAttn
+5  -34.0   -2.0  -38.0  124.0  124.0   34.0    119       Limbic
+6  -63.0   -3.0  -17.0  153.0  123.0   55.0    152      Default
+7   -4.0   20.0   20.0   94.0  146.0   92.0    146         Cont
+8  -52.0   17.0  -13.0  142.0  143.0   59.0    153      Default
+9   -4.0   60.0  -14.0   94.0  186.0   58.0    168      Default
+
+
+Saved variables at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/15496donor\_400Parcels\_7Network\_1mm.pkl
+
+Saved csv at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/15496donor\_400Parcels\_7Network\_1mm.csv
+
+Start to map genes from donor 15496 to Schaefer at 400 parcels and 7 networks at 2 mm resolution
+
+Mapping genes to image coordinates
+
+   mni\_x  mni\_y  mni\_z  img\_x  img\_y  img\_z parcel    community
+0  -50.0  -80.0   21.0   70.0   23.0   46.5     23          Vis
+1  -18.0  -53.0   -2.0   54.0   36.5   35.0     16          Vis
+2  -47.0  -27.0   50.0   68.5   49.5   61.0     52       SomMot
+3  -68.0  -28.0   30.0   79.0   49.0   51.0     94  SalVentAttn
+4  -58.0  -28.0   45.0   74.0   49.0   58.5     74     DorsAttn
+5  -34.0   -2.0  -38.0   62.0   62.0   17.0    119       Limbic
+6  -63.0   -3.0  -17.0   76.5   61.5   27.5    152      Default
+7   -4.0   20.0   20.0   47.0   73.0   46.0    146         Cont
+8  -52.0   17.0  -13.0   71.0   71.5   29.5      0  NotAssigned
+9   -4.0   60.0  -14.0   47.0   93.0   29.0    168      Default
+
+
+Saved variables at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/15496donor\_400Parcels\_7Network\_2mm.pkl
+
+Saved csv at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/15496donor\_400Parcels\_7Network\_2mm.csv
+
+Start to map genes from donor 15496 to Schaefer at 400 parcels and 17 networks at 1 mm resolution
+
+Mapping genes to image coordinates
+
+   mni\_x  mni\_y  mni\_z  img\_x  img\_y  img\_z parcel  community
+0  -50.0  -80.0   21.0  140.0   46.0   93.0     10    VisCent
+1  -18.0  -53.0   -2.0  108.0   73.0   70.0     17    VisPeri
+2  -47.0  -27.0   50.0  137.0   99.0  122.0     28    SomMotA
+3  -68.0  -28.0   30.0  158.0   98.0  102.0     73  DorsAttnB
+4  -58.0  -28.0   45.0  148.0   98.0  117.0     75  DorsAttnB
+5  -34.0   -2.0  -38.0  124.0  124.0   34.0    114     Limbic
+6  -63.0   -3.0  -17.0  153.0  123.0   55.0    170   DefaultB
+7   -4.0   20.0   20.0   94.0  146.0   92.0    133      ContA
+8  -52.0   17.0  -13.0  142.0  143.0   59.0    195    TempPar
+9   -4.0   60.0  -14.0   94.0  186.0   58.0    161   DefaultA
+
+
+Saved variables at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/15496donor\_400Parcels\_17Network\_1mm.pkl
+
+Saved csv at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/15496donor\_400Parcels\_17Network\_1mm.csv
+
+Start to map genes from donor 15496 to Schaefer at 400 parcels and 17 networks at 2 mm resolution
+
+Mapping genes to image coordinates
+
+   mni\_x  mni\_y  mni\_z  img\_x  img\_y  img\_z parcel    community
+0  -50.0  -80.0   21.0   70.0   23.0   46.5     10      VisCent
+1  -18.0  -53.0   -2.0   54.0   36.5   35.0     17      VisPeri
+2  -47.0  -27.0   50.0   68.5   49.5   61.0     28      SomMotA
+3  -68.0  -28.0   30.0   79.0   49.0   51.0     73    DorsAttnB
+4  -58.0  -28.0   45.0   74.0   49.0   58.5     75    DorsAttnB
+5  -34.0   -2.0  -38.0   62.0   62.0   17.0    114       Limbic
+6  -63.0   -3.0  -17.0   76.5   61.5   27.5    170     DefaultB
+7   -4.0   20.0   20.0   47.0   73.0   46.0    133        ContA
+8  -52.0   17.0  -13.0   71.0   71.5   29.5      0  NotAssigned
+9   -4.0   60.0  -14.0   47.0   93.0   29.0    161     DefaultA
+
+
+Saved variables at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/15496donor\_400Parcels\_17Network\_2mm.pkl
+
+Saved csv at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/15496donor\_400Parcels\_17Network\_2mm.csv
+
+Start to map genes from donor 15496 to Schaefer at 600 parcels and 7 networks at 1 mm resolution
+
+Mapping genes to image coordinates
+
+   mni\_x  mni\_y  mni\_z  img\_x  img\_y  img\_z parcel    community
+0  -50.0  -80.0   21.0  140.0   46.0   93.0     32          Vis
+1  -18.0  -53.0   -2.0  108.0   73.0   70.0     21          Vis
+2  -47.0  -27.0   50.0  137.0   99.0  122.0     75       SomMot
+3  -68.0  -28.0   30.0  158.0   98.0  102.0    142  SalVentAttn
+4  -58.0  -28.0   45.0  148.0   98.0  117.0    112     DorsAttn
+5  -34.0   -2.0  -38.0  124.0  124.0   34.0    179       Limbic
+6  -63.0   -3.0  -17.0  153.0  123.0   55.0    233      Default
+7   -4.0   20.0   20.0   94.0  146.0   92.0    224         Cont
+8  -52.0   17.0  -13.0  142.0  143.0   59.0    231      Default
+9   -4.0   60.0  -14.0   94.0  186.0   58.0    257      Default
+
+
+Saved variables at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/15496donor\_600Parcels\_7Network\_1mm.pkl
+
+Saved csv at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/15496donor\_600Parcels\_7Network\_1mm.csv
+
+Start to map genes from donor 15496 to Schaefer at 600 parcels and 7 networks at 2 mm resolution
+
+Mapping genes to image coordinates
+
+   mni\_x  mni\_y  mni\_z  img\_x  img\_y  img\_z parcel    community
+0  -50.0  -80.0   21.0   70.0   23.0   46.5     32          Vis
+1  -18.0  -53.0   -2.0   54.0   36.5   35.0     21          Vis
+2  -47.0  -27.0   50.0   68.5   49.5   61.0     75       SomMot
+3  -68.0  -28.0   30.0   79.0   49.0   51.0    142  SalVentAttn
+4  -58.0  -28.0   45.0   74.0   49.0   58.5    112     DorsAttn
+5  -34.0   -2.0  -38.0   62.0   62.0   17.0    179       Limbic
+6  -63.0   -3.0  -17.0   76.5   61.5   27.5    233      Default
+7   -4.0   20.0   20.0   47.0   73.0   46.0    224         Cont
+8  -52.0   17.0  -13.0   71.0   71.5   29.5      0  NotAssigned
+9   -4.0   60.0  -14.0   47.0   93.0   29.0    257      Default
+
+
+Saved variables at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/15496donor\_600Parcels\_7Network\_2mm.pkl
+
+Saved csv at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/15496donor\_600Parcels\_7Network\_2mm.csv
+
+Start to map genes from donor 15496 to Schaefer at 600 parcels and 17 networks at 1 mm resolution
+
+Mapping genes to image coordinates
+
+   mni\_x  mni\_y  mni\_z  img\_x  img\_y  img\_z parcel     community
+0  -50.0  -80.0   21.0  140.0   46.0   93.0     98     DorsAttnA
+1  -18.0  -53.0   -2.0  108.0   73.0   70.0     28       VisPeri
+2  -47.0  -27.0   50.0  137.0   99.0  122.0     42       SomMotA
+3  -68.0  -28.0   30.0  158.0   98.0  102.0    112     DorsAttnB
+4  -58.0  -28.0   45.0  148.0   98.0  117.0    113     DorsAttnB
+5  -34.0   -2.0  -38.0  124.0  124.0   34.0    175        Limbic
+6  -63.0   -3.0  -17.0  153.0  123.0   55.0    258      DefaultB
+7   -4.0   20.0   20.0   94.0  146.0   92.0    162  SalVentAttnB
+8  -52.0   17.0  -13.0  142.0  143.0   59.0    257      DefaultB
+9   -4.0   60.0  -14.0   94.0  186.0   58.0    247      DefaultA
+
+
+Saved variables at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/15496donor\_600Parcels\_17Network\_1mm.pkl
+
+Saved csv at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/15496donor\_600Parcels\_17Network\_1mm.csv
+
+Start to map genes from donor 15496 to Schaefer at 600 parcels and 17 networks at 2 mm resolution
+
+Mapping genes to image coordinates
+
+   mni\_x  mni\_y  mni\_z  img\_x  img\_y  img\_z parcel     community
+0  -50.0  -80.0   21.0   70.0   23.0   46.5     98     DorsAttnA
+1  -18.0  -53.0   -2.0   54.0   36.5   35.0     28       VisPeri
+2  -47.0  -27.0   50.0   68.5   49.5   61.0     42       SomMotA
+3  -68.0  -28.0   30.0   79.0   49.0   51.0    112     DorsAttnB
+4  -58.0  -28.0   45.0   74.0   49.0   58.5    113     DorsAttnB
+5  -34.0   -2.0  -38.0   62.0   62.0   17.0    175        Limbic
+6  -63.0   -3.0  -17.0   76.5   61.5   27.5    258      DefaultB
+7   -4.0   20.0   20.0   47.0   73.0   46.0    162  SalVentAttnB
+8  -52.0   17.0  -13.0   71.0   71.5   29.5      0   NotAssigned
+9   -4.0   60.0  -14.0   47.0   93.0   29.0    247      DefaultA
+
+
+Saved variables at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/15496donor\_600Parcels\_17Network\_2mm.pkl
+
+Saved csv at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/15496donor\_600Parcels\_17Network\_2mm.csv
+
+Start to map genes from donor 15496 to Schaefer at 800 parcels and 7 networks at 1 mm resolution
+
+Mapping genes to image coordinates
+
+   mni\_x  mni\_y  mni\_z  img\_x  img\_y  img\_z parcel    community
+0  -50.0  -80.0   21.0  140.0   46.0   93.0     49          Vis
+1  -18.0  -53.0   -2.0  108.0   73.0   70.0     28          Vis
+2  -47.0  -27.0   50.0  137.0   99.0  122.0    103       SomMot
+3  -68.0  -28.0   30.0  158.0   98.0  102.0    193  SalVentAttn
+4  -58.0  -28.0   45.0  148.0   98.0  117.0    156     DorsAttn
+5  -34.0   -2.0  -38.0  124.0  124.0   34.0    243       Limbic
+6  -63.0   -3.0  -17.0  153.0  123.0   55.0    309      Default
+7   -4.0   20.0   20.0   94.0  146.0   92.0    298         Cont
+8  -52.0   17.0  -13.0  142.0  143.0   59.0    307      Default
+9   -4.0   60.0  -14.0   94.0  186.0   58.0    336      Default
+
+
+Saved variables at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/15496donor\_800Parcels\_7Network\_1mm.pkl
+
+Saved csv at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/15496donor\_800Parcels\_7Network\_1mm.csv
+
+Start to map genes from donor 15496 to Schaefer at 800 parcels and 7 networks at 2 mm resolution
+
+Mapping genes to image coordinates
+
+   mni\_x  mni\_y  mni\_z  img\_x  img\_y  img\_z parcel    community
+0  -50.0  -80.0   21.0   70.0   23.0   46.5     49          Vis
+1  -18.0  -53.0   -2.0   54.0   36.5   35.0     28          Vis
+2  -47.0  -27.0   50.0   68.5   49.5   61.0    103       SomMot
+3  -68.0  -28.0   30.0   79.0   49.0   51.0    193  SalVentAttn
+4  -58.0  -28.0   45.0   74.0   49.0   58.5    156     DorsAttn
+5  -34.0   -2.0  -38.0   62.0   62.0   17.0    243       Limbic
+6  -63.0   -3.0  -17.0   76.5   61.5   27.5    309      Default
+7   -4.0   20.0   20.0   47.0   73.0   46.0    298         Cont
+8  -52.0   17.0  -13.0   71.0   71.5   29.5      0  NotAssigned
+9   -4.0   60.0  -14.0   47.0   93.0   29.0    336      Default
+
+
+Saved variables at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/15496donor\_800Parcels\_7Network\_2mm.pkl
+
+Saved csv at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/15496donor\_800Parcels\_7Network\_2mm.csv
+
+Start to map genes from donor 15496 to Schaefer at 800 parcels and 17 networks at 1 mm resolution
+
+Mapping genes to image coordinates
+
+   mni\_x  mni\_y  mni\_z  img\_x  img\_y  img\_z parcel     community
+0  -50.0  -80.0   21.0  140.0   46.0   93.0     22       VisCent
+1  -18.0  -53.0   -2.0  108.0   73.0   70.0     34       VisPeri
+2  -47.0  -27.0   50.0  137.0   99.0  122.0     60       SomMotA
+3  -68.0  -28.0   30.0  158.0   98.0  102.0    175  SalVentAttnA
+4  -58.0  -28.0   45.0  148.0   98.0  117.0    155     DorsAttnB
+5  -34.0   -2.0  -38.0  124.0  124.0   34.0    235        Limbic
+6  -63.0   -3.0  -17.0  153.0  123.0   55.0    348      DefaultB
+7   -4.0   20.0   20.0   94.0  146.0   92.0    218  SalVentAttnB
+8  -52.0   17.0  -13.0  142.0  143.0   59.0    390       TempPar
+9   -4.0   60.0  -14.0   94.0  186.0   58.0    335      DefaultA
+
+
+Saved variables at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/15496donor\_800Parcels\_17Network\_1mm.pkl
+
+Saved csv at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/15496donor\_800Parcels\_17Network\_1mm.csv
+
+Start to map genes from donor 15496 to Schaefer at 800 parcels and 17 networks at 2 mm resolution
+
+Mapping genes to image coordinates
+
+   mni\_x  mni\_y  mni\_z  img\_x  img\_y  img\_z parcel     community
+0  -50.0  -80.0   21.0   70.0   23.0   46.5     22       VisCent
+1  -18.0  -53.0   -2.0   54.0   36.5   35.0     34       VisPeri
+2  -47.0  -27.0   50.0   68.5   49.5   61.0     60       SomMotA
+3  -68.0  -28.0   30.0   79.0   49.0   51.0    175  SalVentAttnA
+4  -58.0  -28.0   45.0   74.0   49.0   58.5    155     DorsAttnB
+5  -34.0   -2.0  -38.0   62.0   62.0   17.0    235        Limbic
+6  -63.0   -3.0  -17.0   76.5   61.5   27.5    348      DefaultB
+7   -4.0   20.0   20.0   47.0   73.0   46.0    218  SalVentAttnB
+8  -52.0   17.0  -13.0   71.0   71.5   29.5      0   NotAssigned
+9   -4.0   60.0  -14.0   47.0   93.0   29.0    335      DefaultA
+
+
+Saved variables at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/15496donor\_800Parcels\_17Network\_2mm.pkl
+
+Saved csv at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/15496donor\_800Parcels\_17Network\_2mm.csv
+
+Start to map genes from donor 15697 to Schaefer at 100 parcels and 7 networks at 1 mm resolution
+
+Mapping genes to image coordinates
+
+   mni\_x  mni\_y  mni\_z  img\_x  img\_y  img\_z parcel    community
+0    8.0  -41.0  -35.0   82.0   85.0   37.0      0  NotAssigned
+1    2.0  -43.0  -34.0   88.0   83.0   38.0      0  NotAssigned
+2   -1.0  -41.0  -35.0   91.0   85.0   37.0      0  NotAssigned
+3    9.0  -43.0  -35.0   81.0   83.0   37.0      0  NotAssigned
+4   11.0  -40.0  -35.0   79.0   86.0   37.0      0  NotAssigned
+5    4.0  -29.0  -36.0   86.0   97.0   36.0      0  NotAssigned
+6   11.0  -41.0  -35.0   79.0   85.0   37.0      0  NotAssigned
+7    8.0  -40.0  -35.0   82.0   86.0   37.0      0  NotAssigned
+8    6.0  -41.0  -35.0   84.0   85.0   37.0      0  NotAssigned
+9   12.0  -39.0  -31.0   78.0   87.0   41.0      0  NotAssigned
+
+
+Saved variables at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/15697donor\_100Parcels\_7Network\_1mm.pkl
+
+Saved csv at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/15697donor\_100Parcels\_7Network\_1mm.csv
+
+Start to map genes from donor 15697 to Schaefer at 100 parcels and 7 networks at 2 mm resolution
+
+Mapping genes to image coordinates
+
+   mni\_x  mni\_y  mni\_z  img\_x  img\_y  img\_z parcel    community
+0    8.0  -41.0  -35.0   41.0   42.5   18.5      0  NotAssigned
+1    2.0  -43.0  -34.0   44.0   41.5   19.0      0  NotAssigned
+2   -1.0  -41.0  -35.0   45.5   42.5   18.5      0  NotAssigned
+3    9.0  -43.0  -35.0   40.5   41.5   18.5      0  NotAssigned
+4   11.0  -40.0  -35.0   39.5   43.0   18.5      0  NotAssigned
+5    4.0  -29.0  -36.0   43.0   48.5   18.0      0  NotAssigned
+6   11.0  -41.0  -35.0   39.5   42.5   18.5      0  NotAssigned
+7    8.0  -40.0  -35.0   41.0   43.0   18.5      0  NotAssigned
+8    6.0  -41.0  -35.0   42.0   42.5   18.5      0  NotAssigned
+9   12.0  -39.0  -31.0   39.0   43.5   20.5      0  NotAssigned
+
+
+Saved variables at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/15697donor\_100Parcels\_7Network\_2mm.pkl
+
+Saved csv at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/15697donor\_100Parcels\_7Network\_2mm.csv
+
+Start to map genes from donor 15697 to Schaefer at 100 parcels and 17 networks at 1 mm resolution
+
+Mapping genes to image coordinates
+
+   mni\_x  mni\_y  mni\_z  img\_x  img\_y  img\_z parcel    community
+0    8.0  -41.0  -35.0   82.0   85.0   37.0      0  NotAssigned
+1    2.0  -43.0  -34.0   88.0   83.0   38.0      0  NotAssigned
+2   -1.0  -41.0  -35.0   91.0   85.0   37.0      0  NotAssigned
+3    9.0  -43.0  -35.0   81.0   83.0   37.0      0  NotAssigned
+4   11.0  -40.0  -35.0   79.0   86.0   37.0      0  NotAssigned
+5    4.0  -29.0  -36.0   86.0   97.0   36.0      0  NotAssigned
+6   11.0  -41.0  -35.0   79.0   85.0   37.0      0  NotAssigned
+7    8.0  -40.0  -35.0   82.0   86.0   37.0      0  NotAssigned
+8    6.0  -41.0  -35.0   84.0   85.0   37.0      0  NotAssigned
+9   12.0  -39.0  -31.0   78.0   87.0   41.0      0  NotAssigned
+
+
+Saved variables at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/15697donor\_100Parcels\_17Network\_1mm.pkl
+
+Saved csv at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/15697donor\_100Parcels\_17Network\_1mm.csv
+
+Start to map genes from donor 15697 to Schaefer at 100 parcels and 17 networks at 2 mm resolution
+
+Mapping genes to image coordinates
+
+   mni\_x  mni\_y  mni\_z  img\_x  img\_y  img\_z parcel    community
+0    8.0  -41.0  -35.0   41.0   42.5   18.5      0  NotAssigned
+1    2.0  -43.0  -34.0   44.0   41.5   19.0      0  NotAssigned
+2   -1.0  -41.0  -35.0   45.5   42.5   18.5      0  NotAssigned
+3    9.0  -43.0  -35.0   40.5   41.5   18.5      0  NotAssigned
+4   11.0  -40.0  -35.0   39.5   43.0   18.5      0  NotAssigned
+5    4.0  -29.0  -36.0   43.0   48.5   18.0      0  NotAssigned
+6   11.0  -41.0  -35.0   39.5   42.5   18.5      0  NotAssigned
+7    8.0  -40.0  -35.0   41.0   43.0   18.5      0  NotAssigned
+8    6.0  -41.0  -35.0   42.0   42.5   18.5      0  NotAssigned
+9   12.0  -39.0  -31.0   39.0   43.5   20.5      0  NotAssigned
+
+
+Saved variables at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/15697donor\_100Parcels\_17Network\_2mm.pkl
+
+Saved csv at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/15697donor\_100Parcels\_17Network\_2mm.csv
+
+Start to map genes from donor 15697 to Schaefer at 200 parcels and 7 networks at 1 mm resolution
+
+Mapping genes to image coordinates
+
+   mni\_x  mni\_y  mni\_z  img\_x  img\_y  img\_z parcel    community
+0    8.0  -41.0  -35.0   82.0   85.0   37.0      0  NotAssigned
+1    2.0  -43.0  -34.0   88.0   83.0   38.0      0  NotAssigned
+2   -1.0  -41.0  -35.0   91.0   85.0   37.0      0  NotAssigned
+3    9.0  -43.0  -35.0   81.0   83.0   37.0      0  NotAssigned
+4   11.0  -40.0  -35.0   79.0   86.0   37.0      0  NotAssigned
+5    4.0  -29.0  -36.0   86.0   97.0   36.0      0  NotAssigned
+6   11.0  -41.0  -35.0   79.0   85.0   37.0      0  NotAssigned
+7    8.0  -40.0  -35.0   82.0   86.0   37.0      0  NotAssigned
+8    6.0  -41.0  -35.0   84.0   85.0   37.0      0  NotAssigned
+9   12.0  -39.0  -31.0   78.0   87.0   41.0      0  NotAssigned
+
+
+Saved variables at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/15697donor\_200Parcels\_7Network\_1mm.pkl
+
+Saved csv at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/15697donor\_200Parcels\_7Network\_1mm.csv
+
+Start to map genes from donor 15697 to Schaefer at 200 parcels and 7 networks at 2 mm resolution
+
+Mapping genes to image coordinates
+
+   mni\_x  mni\_y  mni\_z  img\_x  img\_y  img\_z parcel    community
+0    8.0  -41.0  -35.0   41.0   42.5   18.5      0  NotAssigned
+1    2.0  -43.0  -34.0   44.0   41.5   19.0      0  NotAssigned
+2   -1.0  -41.0  -35.0   45.5   42.5   18.5      0  NotAssigned
+3    9.0  -43.0  -35.0   40.5   41.5   18.5      0  NotAssigned
+4   11.0  -40.0  -35.0   39.5   43.0   18.5      0  NotAssigned
+5    4.0  -29.0  -36.0   43.0   48.5   18.0      0  NotAssigned
+6   11.0  -41.0  -35.0   39.5   42.5   18.5      0  NotAssigned
+7    8.0  -40.0  -35.0   41.0   43.0   18.5      0  NotAssigned
+8    6.0  -41.0  -35.0   42.0   42.5   18.5      0  NotAssigned
+9   12.0  -39.0  -31.0   39.0   43.5   20.5      0  NotAssigned
+
+
+Saved variables at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/15697donor\_200Parcels\_7Network\_2mm.pkl
+
+Saved csv at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/15697donor\_200Parcels\_7Network\_2mm.csv
+
+Start to map genes from donor 15697 to Schaefer at 200 parcels and 17 networks at 1 mm resolution
+
+Mapping genes to image coordinates
+
+   mni\_x  mni\_y  mni\_z  img\_x  img\_y  img\_z parcel    community
+0    8.0  -41.0  -35.0   82.0   85.0   37.0      0  NotAssigned
+1    2.0  -43.0  -34.0   88.0   83.0   38.0      0  NotAssigned
+2   -1.0  -41.0  -35.0   91.0   85.0   37.0      0  NotAssigned
+3    9.0  -43.0  -35.0   81.0   83.0   37.0      0  NotAssigned
+4   11.0  -40.0  -35.0   79.0   86.0   37.0      0  NotAssigned
+5    4.0  -29.0  -36.0   86.0   97.0   36.0      0  NotAssigned
+6   11.0  -41.0  -35.0   79.0   85.0   37.0      0  NotAssigned
+7    8.0  -40.0  -35.0   82.0   86.0   37.0      0  NotAssigned
+8    6.0  -41.0  -35.0   84.0   85.0   37.0      0  NotAssigned
+9   12.0  -39.0  -31.0   78.0   87.0   41.0      0  NotAssigned
+
+
+Saved variables at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/15697donor\_200Parcels\_17Network\_1mm.pkl
+
+Saved csv at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/15697donor\_200Parcels\_17Network\_1mm.csv
+
+Start to map genes from donor 15697 to Schaefer at 200 parcels and 17 networks at 2 mm resolution
+
+Mapping genes to image coordinates
+
+   mni\_x  mni\_y  mni\_z  img\_x  img\_y  img\_z parcel    community
+0    8.0  -41.0  -35.0   41.0   42.5   18.5      0  NotAssigned
+1    2.0  -43.0  -34.0   44.0   41.5   19.0      0  NotAssigned
+2   -1.0  -41.0  -35.0   45.5   42.5   18.5      0  NotAssigned
+3    9.0  -43.0  -35.0   40.5   41.5   18.5      0  NotAssigned
+4   11.0  -40.0  -35.0   39.5   43.0   18.5      0  NotAssigned
+5    4.0  -29.0  -36.0   43.0   48.5   18.0      0  NotAssigned
+6   11.0  -41.0  -35.0   39.5   42.5   18.5      0  NotAssigned
+7    8.0  -40.0  -35.0   41.0   43.0   18.5      0  NotAssigned
+8    6.0  -41.0  -35.0   42.0   42.5   18.5      0  NotAssigned
+9   12.0  -39.0  -31.0   39.0   43.5   20.5      0  NotAssigned
+
+
+Saved variables at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/15697donor\_200Parcels\_17Network\_2mm.pkl
+
+Saved csv at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/15697donor\_200Parcels\_17Network\_2mm.csv
+
+Start to map genes from donor 15697 to Schaefer at 400 parcels and 7 networks at 1 mm resolution
+
+Mapping genes to image coordinates
+
+   mni\_x  mni\_y  mni\_z  img\_x  img\_y  img\_z parcel    community
+0    8.0  -41.0  -35.0   82.0   85.0   37.0      0  NotAssigned
+1    2.0  -43.0  -34.0   88.0   83.0   38.0      0  NotAssigned
+2   -1.0  -41.0  -35.0   91.0   85.0   37.0      0  NotAssigned
+3    9.0  -43.0  -35.0   81.0   83.0   37.0      0  NotAssigned
+4   11.0  -40.0  -35.0   79.0   86.0   37.0      0  NotAssigned
+5    4.0  -29.0  -36.0   86.0   97.0   36.0      0  NotAssigned
+6   11.0  -41.0  -35.0   79.0   85.0   37.0      0  NotAssigned
+7    8.0  -40.0  -35.0   82.0   86.0   37.0      0  NotAssigned
+8    6.0  -41.0  -35.0   84.0   85.0   37.0      0  NotAssigned
+9   12.0  -39.0  -31.0   78.0   87.0   41.0      0  NotAssigned
+
+
+Saved variables at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/15697donor\_400Parcels\_7Network\_1mm.pkl
+
+Saved csv at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/15697donor\_400Parcels\_7Network\_1mm.csv
+
+Start to map genes from donor 15697 to Schaefer at 400 parcels and 7 networks at 2 mm resolution
+
+Mapping genes to image coordinates
+
+   mni\_x  mni\_y  mni\_z  img\_x  img\_y  img\_z parcel    community
+0    8.0  -41.0  -35.0   41.0   42.5   18.5      0  NotAssigned
+1    2.0  -43.0  -34.0   44.0   41.5   19.0      0  NotAssigned
+2   -1.0  -41.0  -35.0   45.5   42.5   18.5      0  NotAssigned
+3    9.0  -43.0  -35.0   40.5   41.5   18.5      0  NotAssigned
+4   11.0  -40.0  -35.0   39.5   43.0   18.5      0  NotAssigned
+5    4.0  -29.0  -36.0   43.0   48.5   18.0      0  NotAssigned
+6   11.0  -41.0  -35.0   39.5   42.5   18.5      0  NotAssigned
+7    8.0  -40.0  -35.0   41.0   43.0   18.5      0  NotAssigned
+8    6.0  -41.0  -35.0   42.0   42.5   18.5      0  NotAssigned
+9   12.0  -39.0  -31.0   39.0   43.5   20.5      0  NotAssigned
+
+
+Saved variables at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/15697donor\_400Parcels\_7Network\_2mm.pkl
+
+Saved csv at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/15697donor\_400Parcels\_7Network\_2mm.csv
+
+Start to map genes from donor 15697 to Schaefer at 400 parcels and 17 networks at 1 mm resolution
+
+Mapping genes to image coordinates
+
+   mni\_x  mni\_y  mni\_z  img\_x  img\_y  img\_z parcel    community
+0    8.0  -41.0  -35.0   82.0   85.0   37.0      0  NotAssigned
+1    2.0  -43.0  -34.0   88.0   83.0   38.0      0  NotAssigned
+2   -1.0  -41.0  -35.0   91.0   85.0   37.0      0  NotAssigned
+3    9.0  -43.0  -35.0   81.0   83.0   37.0      0  NotAssigned
+4   11.0  -40.0  -35.0   79.0   86.0   37.0      0  NotAssigned
+5    4.0  -29.0  -36.0   86.0   97.0   36.0      0  NotAssigned
+6   11.0  -41.0  -35.0   79.0   85.0   37.0      0  NotAssigned
+7    8.0  -40.0  -35.0   82.0   86.0   37.0      0  NotAssigned
+8    6.0  -41.0  -35.0   84.0   85.0   37.0      0  NotAssigned
+9   12.0  -39.0  -31.0   78.0   87.0   41.0      0  NotAssigned
+
+
+Saved variables at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/15697donor\_400Parcels\_17Network\_1mm.pkl
+
+Saved csv at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/15697donor\_400Parcels\_17Network\_1mm.csv
+
+Start to map genes from donor 15697 to Schaefer at 400 parcels and 17 networks at 2 mm resolution
+
+Mapping genes to image coordinates
+
+   mni\_x  mni\_y  mni\_z  img\_x  img\_y  img\_z parcel    community
+0    8.0  -41.0  -35.0   41.0   42.5   18.5      0  NotAssigned
+1    2.0  -43.0  -34.0   44.0   41.5   19.0      0  NotAssigned
+2   -1.0  -41.0  -35.0   45.5   42.5   18.5      0  NotAssigned
+3    9.0  -43.0  -35.0   40.5   41.5   18.5      0  NotAssigned
+4   11.0  -40.0  -35.0   39.5   43.0   18.5      0  NotAssigned
+5    4.0  -29.0  -36.0   43.0   48.5   18.0      0  NotAssigned
+6   11.0  -41.0  -35.0   39.5   42.5   18.5      0  NotAssigned
+7    8.0  -40.0  -35.0   41.0   43.0   18.5      0  NotAssigned
+8    6.0  -41.0  -35.0   42.0   42.5   18.5      0  NotAssigned
+9   12.0  -39.0  -31.0   39.0   43.5   20.5      0  NotAssigned
+
+
+Saved variables at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/15697donor\_400Parcels\_17Network\_2mm.pkl
+
+Saved csv at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/15697donor\_400Parcels\_17Network\_2mm.csv
+
+Start to map genes from donor 15697 to Schaefer at 600 parcels and 7 networks at 1 mm resolution
+
+Mapping genes to image coordinates
+
+   mni\_x  mni\_y  mni\_z  img\_x  img\_y  img\_z parcel    community
+0    8.0  -41.0  -35.0   82.0   85.0   37.0      0  NotAssigned
+1    2.0  -43.0  -34.0   88.0   83.0   38.0      0  NotAssigned
+2   -1.0  -41.0  -35.0   91.0   85.0   37.0      0  NotAssigned
+3    9.0  -43.0  -35.0   81.0   83.0   37.0      0  NotAssigned
+4   11.0  -40.0  -35.0   79.0   86.0   37.0      0  NotAssigned
+5    4.0  -29.0  -36.0   86.0   97.0   36.0      0  NotAssigned
+6   11.0  -41.0  -35.0   79.0   85.0   37.0      0  NotAssigned
+7    8.0  -40.0  -35.0   82.0   86.0   37.0      0  NotAssigned
+8    6.0  -41.0  -35.0   84.0   85.0   37.0      0  NotAssigned
+9   12.0  -39.0  -31.0   78.0   87.0   41.0      0  NotAssigned
+
+
+Saved variables at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/15697donor\_600Parcels\_7Network\_1mm.pkl
+
+Saved csv at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/15697donor\_600Parcels\_7Network\_1mm.csv
+
+Start to map genes from donor 15697 to Schaefer at 600 parcels and 7 networks at 2 mm resolution
+
+Mapping genes to image coordinates
+
+   mni\_x  mni\_y  mni\_z  img\_x  img\_y  img\_z parcel    community
+0    8.0  -41.0  -35.0   41.0   42.5   18.5      0  NotAssigned
+1    2.0  -43.0  -34.0   44.0   41.5   19.0      0  NotAssigned
+2   -1.0  -41.0  -35.0   45.5   42.5   18.5      0  NotAssigned
+3    9.0  -43.0  -35.0   40.5   41.5   18.5      0  NotAssigned
+4   11.0  -40.0  -35.0   39.5   43.0   18.5      0  NotAssigned
+5    4.0  -29.0  -36.0   43.0   48.5   18.0      0  NotAssigned
+6   11.0  -41.0  -35.0   39.5   42.5   18.5      0  NotAssigned
+7    8.0  -40.0  -35.0   41.0   43.0   18.5      0  NotAssigned
+8    6.0  -41.0  -35.0   42.0   42.5   18.5      0  NotAssigned
+9   12.0  -39.0  -31.0   39.0   43.5   20.5      0  NotAssigned
+
+
+Saved variables at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/15697donor\_600Parcels\_7Network\_2mm.pkl
+
+Saved csv at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/15697donor\_600Parcels\_7Network\_2mm.csv
+
+Start to map genes from donor 15697 to Schaefer at 600 parcels and 17 networks at 1 mm resolution
+
+Mapping genes to image coordinates
+
+   mni\_x  mni\_y  mni\_z  img\_x  img\_y  img\_z parcel    community
+0    8.0  -41.0  -35.0   82.0   85.0   37.0      0  NotAssigned
+1    2.0  -43.0  -34.0   88.0   83.0   38.0      0  NotAssigned
+2   -1.0  -41.0  -35.0   91.0   85.0   37.0      0  NotAssigned
+3    9.0  -43.0  -35.0   81.0   83.0   37.0      0  NotAssigned
+4   11.0  -40.0  -35.0   79.0   86.0   37.0      0  NotAssigned
+5    4.0  -29.0  -36.0   86.0   97.0   36.0      0  NotAssigned
+6   11.0  -41.0  -35.0   79.0   85.0   37.0      0  NotAssigned
+7    8.0  -40.0  -35.0   82.0   86.0   37.0      0  NotAssigned
+8    6.0  -41.0  -35.0   84.0   85.0   37.0      0  NotAssigned
+9   12.0  -39.0  -31.0   78.0   87.0   41.0      0  NotAssigned
+
+
+Saved variables at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/15697donor\_600Parcels\_17Network\_1mm.pkl
+
+Saved csv at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/15697donor\_600Parcels\_17Network\_1mm.csv
+
+Start to map genes from donor 15697 to Schaefer at 600 parcels and 17 networks at 2 mm resolution
+
+Mapping genes to image coordinates
+
+   mni\_x  mni\_y  mni\_z  img\_x  img\_y  img\_z parcel    community
+0    8.0  -41.0  -35.0   41.0   42.5   18.5      0  NotAssigned
+1    2.0  -43.0  -34.0   44.0   41.5   19.0      0  NotAssigned
+2   -1.0  -41.0  -35.0   45.5   42.5   18.5      0  NotAssigned
+3    9.0  -43.0  -35.0   40.5   41.5   18.5      0  NotAssigned
+4   11.0  -40.0  -35.0   39.5   43.0   18.5      0  NotAssigned
+5    4.0  -29.0  -36.0   43.0   48.5   18.0      0  NotAssigned
+6   11.0  -41.0  -35.0   39.5   42.5   18.5      0  NotAssigned
+7    8.0  -40.0  -35.0   41.0   43.0   18.5      0  NotAssigned
+8    6.0  -41.0  -35.0   42.0   42.5   18.5      0  NotAssigned
+9   12.0  -39.0  -31.0   39.0   43.5   20.5      0  NotAssigned
+
+
+Saved variables at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/15697donor\_600Parcels\_17Network\_2mm.pkl
+
+Saved csv at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/15697donor\_600Parcels\_17Network\_2mm.csv
+
+Start to map genes from donor 15697 to Schaefer at 800 parcels and 7 networks at 1 mm resolution
+
+Mapping genes to image coordinates
+
+   mni\_x  mni\_y  mni\_z  img\_x  img\_y  img\_z parcel    community
+0    8.0  -41.0  -35.0   82.0   85.0   37.0      0  NotAssigned
+1    2.0  -43.0  -34.0   88.0   83.0   38.0      0  NotAssigned
+2   -1.0  -41.0  -35.0   91.0   85.0   37.0      0  NotAssigned
+3    9.0  -43.0  -35.0   81.0   83.0   37.0      0  NotAssigned
+4   11.0  -40.0  -35.0   79.0   86.0   37.0      0  NotAssigned
+5    4.0  -29.0  -36.0   86.0   97.0   36.0      0  NotAssigned
+6   11.0  -41.0  -35.0   79.0   85.0   37.0      0  NotAssigned
+7    8.0  -40.0  -35.0   82.0   86.0   37.0      0  NotAssigned
+8    6.0  -41.0  -35.0   84.0   85.0   37.0      0  NotAssigned
+9   12.0  -39.0  -31.0   78.0   87.0   41.0      0  NotAssigned
+
+
+Saved variables at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/15697donor\_800Parcels\_7Network\_1mm.pkl
+
+Saved csv at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/15697donor\_800Parcels\_7Network\_1mm.csv
+
+Start to map genes from donor 15697 to Schaefer at 800 parcels and 7 networks at 2 mm resolution
+
+Mapping genes to image coordinates
+
+   mni\_x  mni\_y  mni\_z  img\_x  img\_y  img\_z parcel    community
+0    8.0  -41.0  -35.0   41.0   42.5   18.5      0  NotAssigned
+1    2.0  -43.0  -34.0   44.0   41.5   19.0      0  NotAssigned
+2   -1.0  -41.0  -35.0   45.5   42.5   18.5      0  NotAssigned
+3    9.0  -43.0  -35.0   40.5   41.5   18.5      0  NotAssigned
+4   11.0  -40.0  -35.0   39.5   43.0   18.5      0  NotAssigned
+5    4.0  -29.0  -36.0   43.0   48.5   18.0      0  NotAssigned
+6   11.0  -41.0  -35.0   39.5   42.5   18.5      0  NotAssigned
+7    8.0  -40.0  -35.0   41.0   43.0   18.5      0  NotAssigned
+8    6.0  -41.0  -35.0   42.0   42.5   18.5      0  NotAssigned
+9   12.0  -39.0  -31.0   39.0   43.5   20.5      0  NotAssigned
+
+
+Saved variables at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/15697donor\_800Parcels\_7Network\_2mm.pkl
+
+Saved csv at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/15697donor\_800Parcels\_7Network\_2mm.csv
+
+Start to map genes from donor 15697 to Schaefer at 800 parcels and 17 networks at 1 mm resolution
+
+Mapping genes to image coordinates
+
+   mni\_x  mni\_y  mni\_z  img\_x  img\_y  img\_z parcel    community
+0    8.0  -41.0  -35.0   82.0   85.0   37.0      0  NotAssigned
+1    2.0  -43.0  -34.0   88.0   83.0   38.0      0  NotAssigned
+2   -1.0  -41.0  -35.0   91.0   85.0   37.0      0  NotAssigned
+3    9.0  -43.0  -35.0   81.0   83.0   37.0      0  NotAssigned
+4   11.0  -40.0  -35.0   79.0   86.0   37.0      0  NotAssigned
+5    4.0  -29.0  -36.0   86.0   97.0   36.0      0  NotAssigned
+6   11.0  -41.0  -35.0   79.0   85.0   37.0      0  NotAssigned
+7    8.0  -40.0  -35.0   82.0   86.0   37.0      0  NotAssigned
+8    6.0  -41.0  -35.0   84.0   85.0   37.0      0  NotAssigned
+9   12.0  -39.0  -31.0   78.0   87.0   41.0      0  NotAssigned
+
+
+Saved variables at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/15697donor\_800Parcels\_17Network\_1mm.pkl
+
+Saved csv at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/15697donor\_800Parcels\_17Network\_1mm.csv
+
+Start to map genes from donor 15697 to Schaefer at 800 parcels and 17 networks at 2 mm resolution
+
+Mapping genes to image coordinates
+
+   mni\_x  mni\_y  mni\_z  img\_x  img\_y  img\_z parcel    community
+0    8.0  -41.0  -35.0   41.0   42.5   18.5      0  NotAssigned
+1    2.0  -43.0  -34.0   44.0   41.5   19.0      0  NotAssigned
+2   -1.0  -41.0  -35.0   45.5   42.5   18.5      0  NotAssigned
+3    9.0  -43.0  -35.0   40.5   41.5   18.5      0  NotAssigned
+4   11.0  -40.0  -35.0   39.5   43.0   18.5      0  NotAssigned
+5    4.0  -29.0  -36.0   43.0   48.5   18.0      0  NotAssigned
+6   11.0  -41.0  -35.0   39.5   42.5   18.5      0  NotAssigned
+7    8.0  -40.0  -35.0   41.0   43.0   18.5      0  NotAssigned
+8    6.0  -41.0  -35.0   42.0   42.5   18.5      0  NotAssigned
+9   12.0  -39.0  -31.0   39.0   43.5   20.5      0  NotAssigned
+
+
+Saved variables at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/15697donor\_800Parcels\_17Network\_2mm.pkl
+
+Saved csv at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/15697donor\_800Parcels\_17Network\_2mm.csv
+
+Start to map genes from donor 9861 to Schaefer at 100 parcels and 7 networks at 1 mm resolution
+
+Mapping genes to image coordinates
+
+   mni\_x  mni\_y  mni\_z  img\_x  img\_y  img\_z parcel    community
+0    5.9  -27.7   49.7   84.1   98.3  121.7     66       SomMot
+1   29.2   17.0   -2.9   60.8  143.0   69.1      0  NotAssigned
+2   28.2  -22.8   16.8   61.8  103.2   88.8      0  NotAssigned
+3  -24.6  -24.6    1.3  114.6  101.4   73.3      0  NotAssigned
+4   31.1  -31.3   -7.3   58.9   94.7   64.7      0  NotAssigned
+5   31.1  -32.3   -7.1   58.9   93.7   64.9      0  NotAssigned
+6   -9.7  -57.4  -32.6   99.7   68.6   39.4      0  NotAssigned
+7    1.9  -58.4  -28.7   88.1   67.6   43.3      0  NotAssigned
+8    8.5  -50.3  -27.8   81.5   75.7   44.2      0  NotAssigned
+9  -22.6  -27.4  -13.8  112.6   98.6   58.2      0  NotAssigned
+
+
+Saved variables at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/9861donor\_100Parcels\_7Network\_1mm.pkl
+
+Saved csv at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/9861donor\_100Parcels\_7Network\_1mm.csv
+
+Start to map genes from donor 9861 to Schaefer at 100 parcels and 7 networks at 2 mm resolution
+
+Mapping genes to image coordinates
+
+   mni\_x  mni\_y  mni\_z  img\_x  img\_y  img\_z parcel    community
+0    5.9  -27.7   49.7  42.05  49.15  60.85     66       SomMot
+1   29.2   17.0   -2.9  30.40  71.50  34.55      0  NotAssigned
+2   28.2  -22.8   16.8  30.90  51.60  44.40      0  NotAssigned
+3  -24.6  -24.6    1.3  57.30  50.70  36.65      0  NotAssigned
+4   31.1  -31.3   -7.3  29.45  47.35  32.35      0  NotAssigned
+5   31.1  -32.3   -7.1  29.45  46.85  32.45      0  NotAssigned
+6   -9.7  -57.4  -32.6  49.85  34.30  19.70      0  NotAssigned
+7    1.9  -58.4  -28.7  44.05  33.80  21.65      0  NotAssigned
+8    8.5  -50.3  -27.8  40.75  37.85  22.10      0  NotAssigned
+9  -22.6  -27.4  -13.8  56.30  49.30  29.10      0  NotAssigned
+
+
+Saved variables at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/9861donor\_100Parcels\_7Network\_2mm.pkl
+
+Saved csv at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/9861donor\_100Parcels\_7Network\_2mm.csv
+
+Start to map genes from donor 9861 to Schaefer at 100 parcels and 17 networks at 1 mm resolution
+
+Mapping genes to image coordinates
+
+   mni\_x  mni\_y  mni\_z  img\_x  img\_y  img\_z parcel    community
+0    5.9  -27.7   49.7   84.1   98.3  121.7     60      SomMotA
+1   29.2   17.0   -2.9   60.8  143.0   69.1      0  NotAssigned
+2   28.2  -22.8   16.8   61.8  103.2   88.8      0  NotAssigned
+3  -24.6  -24.6    1.3  114.6  101.4   73.3      0  NotAssigned
+4   31.1  -31.3   -7.3   58.9   94.7   64.7      0  NotAssigned
+5   31.1  -32.3   -7.1   58.9   93.7   64.9      0  NotAssigned
+6   -9.7  -57.4  -32.6   99.7   68.6   39.4      0  NotAssigned
+7    1.9  -58.4  -28.7   88.1   67.6   43.3      0  NotAssigned
+8    8.5  -50.3  -27.8   81.5   75.7   44.2      0  NotAssigned
+9  -22.6  -27.4  -13.8  112.6   98.6   58.2      0  NotAssigned
+
+
+Saved variables at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/9861donor\_100Parcels\_17Network\_1mm.pkl
+
+Saved csv at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/9861donor\_100Parcels\_17Network\_1mm.csv
+
+Start to map genes from donor 9861 to Schaefer at 100 parcels and 17 networks at 2 mm resolution
+
+Mapping genes to image coordinates
+
+   mni\_x  mni\_y  mni\_z  img\_x  img\_y  img\_z parcel    community
+0    5.9  -27.7   49.7  42.05  49.15  60.85     60      SomMotA
+1   29.2   17.0   -2.9  30.40  71.50  34.55      0  NotAssigned
+2   28.2  -22.8   16.8  30.90  51.60  44.40      0  NotAssigned
+3  -24.6  -24.6    1.3  57.30  50.70  36.65      0  NotAssigned
+4   31.1  -31.3   -7.3  29.45  47.35  32.35      0  NotAssigned
+5   31.1  -32.3   -7.1  29.45  46.85  32.45      0  NotAssigned
+6   -9.7  -57.4  -32.6  49.85  34.30  19.70      0  NotAssigned
+7    1.9  -58.4  -28.7  44.05  33.80  21.65      0  NotAssigned
+8    8.5  -50.3  -27.8  40.75  37.85  22.10      0  NotAssigned
+9  -22.6  -27.4  -13.8  56.30  49.30  29.10      0  NotAssigned
+
+
+Saved variables at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/9861donor\_100Parcels\_17Network\_2mm.pkl
+
+Saved csv at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/9861donor\_100Parcels\_17Network\_2mm.csv
+
+Start to map genes from donor 9861 to Schaefer at 200 parcels and 7 networks at 1 mm resolution
+
+Mapping genes to image coordinates
+
+   mni\_x  mni\_y  mni\_z  img\_x  img\_y  img\_z parcel    community
+0    5.9  -27.7   49.7   84.1   98.3  121.7    126       SomMot
+1   29.2   17.0   -2.9   60.8  143.0   69.1      0  NotAssigned
+2   28.2  -22.8   16.8   61.8  103.2   88.8      0  NotAssigned
+3  -24.6  -24.6    1.3  114.6  101.4   73.3      0  NotAssigned
+4   31.1  -31.3   -7.3   58.9   94.7   64.7      0  NotAssigned
+5   31.1  -32.3   -7.1   58.9   93.7   64.9      0  NotAssigned
+6   -9.7  -57.4  -32.6   99.7   68.6   39.4      0  NotAssigned
+7    1.9  -58.4  -28.7   88.1   67.6   43.3      0  NotAssigned
+8    8.5  -50.3  -27.8   81.5   75.7   44.2      0  NotAssigned
+9  -22.6  -27.4  -13.8  112.6   98.6   58.2      0  NotAssigned
+
+
+Saved variables at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/9861donor\_200Parcels\_7Network\_1mm.pkl
+
+Saved csv at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/9861donor\_200Parcels\_7Network\_1mm.csv
+
+Start to map genes from donor 9861 to Schaefer at 200 parcels and 7 networks at 2 mm resolution
+
+Mapping genes to image coordinates
+
+   mni\_x  mni\_y  mni\_z  img\_x  img\_y  img\_z parcel    community
+0    5.9  -27.7   49.7  42.05  49.15  60.85    126       SomMot
+1   29.2   17.0   -2.9  30.40  71.50  34.55      0  NotAssigned
+2   28.2  -22.8   16.8  30.90  51.60  44.40      0  NotAssigned
+3  -24.6  -24.6    1.3  57.30  50.70  36.65      0  NotAssigned
+4   31.1  -31.3   -7.3  29.45  47.35  32.35      0  NotAssigned
+5   31.1  -32.3   -7.1  29.45  46.85  32.45      0  NotAssigned
+6   -9.7  -57.4  -32.6  49.85  34.30  19.70      0  NotAssigned
+7    1.9  -58.4  -28.7  44.05  33.80  21.65      0  NotAssigned
+8    8.5  -50.3  -27.8  40.75  37.85  22.10      0  NotAssigned
+9  -22.6  -27.4  -13.8  56.30  49.30  29.10      0  NotAssigned
+
+
+Saved variables at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/9861donor\_200Parcels\_7Network\_2mm.pkl
+
+Saved csv at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/9861donor\_200Parcels\_7Network\_2mm.csv
+
+Start to map genes from donor 9861 to Schaefer at 200 parcels and 17 networks at 1 mm resolution
+
+Mapping genes to image coordinates
+
+   mni\_x  mni\_y  mni\_z  img\_x  img\_y  img\_z parcel    community
+0    5.9  -27.7   49.7   84.1   98.3  121.7    115      SomMotA
+1   29.2   17.0   -2.9   60.8  143.0   69.1      0  NotAssigned
+2   28.2  -22.8   16.8   61.8  103.2   88.8      0  NotAssigned
+3  -24.6  -24.6    1.3  114.6  101.4   73.3      0  NotAssigned
+4   31.1  -31.3   -7.3   58.9   94.7   64.7      0  NotAssigned
+5   31.1  -32.3   -7.1   58.9   93.7   64.9      0  NotAssigned
+6   -9.7  -57.4  -32.6   99.7   68.6   39.4      0  NotAssigned
+7    1.9  -58.4  -28.7   88.1   67.6   43.3      0  NotAssigned
+8    8.5  -50.3  -27.8   81.5   75.7   44.2      0  NotAssigned
+9  -22.6  -27.4  -13.8  112.6   98.6   58.2      0  NotAssigned
+
+
+Saved variables at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/9861donor\_200Parcels\_17Network\_1mm.pkl
+
+Saved csv at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/9861donor\_200Parcels\_17Network\_1mm.csv
+
+Start to map genes from donor 9861 to Schaefer at 200 parcels and 17 networks at 2 mm resolution
+
+Mapping genes to image coordinates
+
+   mni\_x  mni\_y  mni\_z  img\_x  img\_y  img\_z parcel    community
+0    5.9  -27.7   49.7  42.05  49.15  60.85    115      SomMotA
+1   29.2   17.0   -2.9  30.40  71.50  34.55      0  NotAssigned
+2   28.2  -22.8   16.8  30.90  51.60  44.40      0  NotAssigned
+3  -24.6  -24.6    1.3  57.30  50.70  36.65      0  NotAssigned
+4   31.1  -31.3   -7.3  29.45  47.35  32.35      0  NotAssigned
+5   31.1  -32.3   -7.1  29.45  46.85  32.45      0  NotAssigned
+6   -9.7  -57.4  -32.6  49.85  34.30  19.70      0  NotAssigned
+7    1.9  -58.4  -28.7  44.05  33.80  21.65      0  NotAssigned
+8    8.5  -50.3  -27.8  40.75  37.85  22.10      0  NotAssigned
+9  -22.6  -27.4  -13.8  56.30  49.30  29.10      0  NotAssigned
+
+
+Saved variables at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/9861donor\_200Parcels\_17Network\_2mm.pkl
+
+Saved csv at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/9861donor\_200Parcels\_17Network\_2mm.csv
+
+Start to map genes from donor 9861 to Schaefer at 400 parcels and 7 networks at 1 mm resolution
+
+Mapping genes to image coordinates
+
+   mni\_x  mni\_y  mni\_z  img\_x  img\_y  img\_z parcel    community
+0    5.9  -27.7   49.7   84.1   98.3  121.7    316  SalVentAttn
+1   29.2   17.0   -2.9   60.8  143.0   69.1      0  NotAssigned
+2   28.2  -22.8   16.8   61.8  103.2   88.8      0  NotAssigned
+3  -24.6  -24.6    1.3  114.6  101.4   73.3      0  NotAssigned
+4   31.1  -31.3   -7.3   58.9   94.7   64.7      0  NotAssigned
+5   31.1  -32.3   -7.1   58.9   93.7   64.9      0  NotAssigned
+6   -9.7  -57.4  -32.6   99.7   68.6   39.4      0  NotAssigned
+7    1.9  -58.4  -28.7   88.1   67.6   43.3      0  NotAssigned
+8    8.5  -50.3  -27.8   81.5   75.7   44.2      0  NotAssigned
+9  -22.6  -27.4  -13.8  112.6   98.6   58.2      0  NotAssigned
+
+
+Saved variables at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/9861donor\_400Parcels\_7Network\_1mm.pkl
+
+Saved csv at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/9861donor\_400Parcels\_7Network\_1mm.csv
+
+Start to map genes from donor 9861 to Schaefer at 400 parcels and 7 networks at 2 mm resolution
+
+Mapping genes to image coordinates
+
+   mni\_x  mni\_y  mni\_z  img\_x  img\_y  img\_z parcel    community
+0    5.9  -27.7   49.7  42.05  49.15  60.85    316  SalVentAttn
+1   29.2   17.0   -2.9  30.40  71.50  34.55      0  NotAssigned
+2   28.2  -22.8   16.8  30.90  51.60  44.40      0  NotAssigned
+3  -24.6  -24.6    1.3  57.30  50.70  36.65      0  NotAssigned
+4   31.1  -31.3   -7.3  29.45  47.35  32.35      0  NotAssigned
+5   31.1  -32.3   -7.1  29.45  46.85  32.45      0  NotAssigned
+6   -9.7  -57.4  -32.6  49.85  34.30  19.70      0  NotAssigned
+7    1.9  -58.4  -28.7  44.05  33.80  21.65      0  NotAssigned
+8    8.5  -50.3  -27.8  40.75  37.85  22.10      0  NotAssigned
+9  -22.6  -27.4  -13.8  56.30  49.30  29.10      0  NotAssigned
+
+
+Saved variables at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/9861donor\_400Parcels\_7Network\_2mm.pkl
+
+Saved csv at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/9861donor\_400Parcels\_7Network\_2mm.csv
+
+Start to map genes from donor 9861 to Schaefer at 400 parcels and 17 networks at 1 mm resolution
+
+Mapping genes to image coordinates
+
+   mni\_x  mni\_y  mni\_z  img\_x  img\_y  img\_z parcel     community
+0    5.9  -27.7   49.7   84.1   98.3  121.7    301  SalVentAttnA
+1   29.2   17.0   -2.9   60.8  143.0   69.1      0   NotAssigned
+2   28.2  -22.8   16.8   61.8  103.2   88.8      0   NotAssigned
+3  -24.6  -24.6    1.3  114.6  101.4   73.3      0   NotAssigned
+4   31.1  -31.3   -7.3   58.9   94.7   64.7      0   NotAssigned
+5   31.1  -32.3   -7.1   58.9   93.7   64.9      0   NotAssigned
+6   -9.7  -57.4  -32.6   99.7   68.6   39.4      0   NotAssigned
+7    1.9  -58.4  -28.7   88.1   67.6   43.3      0   NotAssigned
+8    8.5  -50.3  -27.8   81.5   75.7   44.2      0   NotAssigned
+9  -22.6  -27.4  -13.8  112.6   98.6   58.2      0   NotAssigned
+
+
+Saved variables at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/9861donor\_400Parcels\_17Network\_1mm.pkl
+
+Saved csv at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/9861donor\_400Parcels\_17Network\_1mm.csv
+
+Start to map genes from donor 9861 to Schaefer at 400 parcels and 17 networks at 2 mm resolution
+
+Mapping genes to image coordinates
+
+   mni\_x  mni\_y  mni\_z  img\_x  img\_y  img\_z parcel     community
+0    5.9  -27.7   49.7  42.05  49.15  60.85    301  SalVentAttnA
+1   29.2   17.0   -2.9  30.40  71.50  34.55      0   NotAssigned
+2   28.2  -22.8   16.8  30.90  51.60  44.40      0   NotAssigned
+3  -24.6  -24.6    1.3  57.30  50.70  36.65      0   NotAssigned
+4   31.1  -31.3   -7.3  29.45  47.35  32.35      0   NotAssigned
+5   31.1  -32.3   -7.1  29.45  46.85  32.45      0   NotAssigned
+6   -9.7  -57.4  -32.6  49.85  34.30  19.70      0   NotAssigned
+7    1.9  -58.4  -28.7  44.05  33.80  21.65      0   NotAssigned
+8    8.5  -50.3  -27.8  40.75  37.85  22.10      0   NotAssigned
+9  -22.6  -27.4  -13.8  56.30  49.30  29.10      0   NotAssigned
+
+
+Saved variables at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/9861donor\_400Parcels\_17Network\_2mm.pkl
+
+Saved csv at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/9861donor\_400Parcels\_17Network\_2mm.csv
+
+Start to map genes from donor 9861 to Schaefer at 600 parcels and 7 networks at 1 mm resolution
+
+Mapping genes to image coordinates
+
+   mni\_x  mni\_y  mni\_z  img\_x  img\_y  img\_z parcel    community
+0    5.9  -27.7   49.7   84.1   98.3  121.7    380       SomMot
+1   29.2   17.0   -2.9   60.8  143.0   69.1      0  NotAssigned
+2   28.2  -22.8   16.8   61.8  103.2   88.8      0  NotAssigned
+3  -24.6  -24.6    1.3  114.6  101.4   73.3      0  NotAssigned
+4   31.1  -31.3   -7.3   58.9   94.7   64.7      0  NotAssigned
+5   31.1  -32.3   -7.1   58.9   93.7   64.9      0  NotAssigned
+6   -9.7  -57.4  -32.6   99.7   68.6   39.4      0  NotAssigned
+7    1.9  -58.4  -28.7   88.1   67.6   43.3      0  NotAssigned
+8    8.5  -50.3  -27.8   81.5   75.7   44.2      0  NotAssigned
+9  -22.6  -27.4  -13.8  112.6   98.6   58.2      0  NotAssigned
+
+
+Saved variables at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/9861donor\_600Parcels\_7Network\_1mm.pkl
+
+Saved csv at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/9861donor\_600Parcels\_7Network\_1mm.csv
+
+Start to map genes from donor 9861 to Schaefer at 600 parcels and 7 networks at 2 mm resolution
+
+Mapping genes to image coordinates
+
+   mni\_x  mni\_y  mni\_z  img\_x  img\_y  img\_z parcel    community
+0    5.9  -27.7   49.7  42.05  49.15  60.85    380       SomMot
+1   29.2   17.0   -2.9  30.40  71.50  34.55      0  NotAssigned
+2   28.2  -22.8   16.8  30.90  51.60  44.40      0  NotAssigned
+3  -24.6  -24.6    1.3  57.30  50.70  36.65      0  NotAssigned
+4   31.1  -31.3   -7.3  29.45  47.35  32.35      0  NotAssigned
+5   31.1  -32.3   -7.1  29.45  46.85  32.45      0  NotAssigned
+6   -9.7  -57.4  -32.6  49.85  34.30  19.70      0  NotAssigned
+7    1.9  -58.4  -28.7  44.05  33.80  21.65      0  NotAssigned
+8    8.5  -50.3  -27.8  40.75  37.85  22.10      0  NotAssigned
+9  -22.6  -27.4  -13.8  56.30  49.30  29.10      0  NotAssigned
+
+
+Saved variables at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/9861donor\_600Parcels\_7Network\_2mm.pkl
+
+Saved csv at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/9861donor\_600Parcels\_7Network\_2mm.csv
+
+Start to map genes from donor 9861 to Schaefer at 600 parcels and 17 networks at 1 mm resolution
+
+Mapping genes to image coordinates
+
+   mni\_x  mni\_y  mni\_z  img\_x  img\_y  img\_z parcel    community
+0    5.9  -27.7   49.7   84.1   98.3  121.7    345      SomMotA
+1   29.2   17.0   -2.9   60.8  143.0   69.1      0  NotAssigned
+2   28.2  -22.8   16.8   61.8  103.2   88.8      0  NotAssigned
+3  -24.6  -24.6    1.3  114.6  101.4   73.3      0  NotAssigned
+4   31.1  -31.3   -7.3   58.9   94.7   64.7      0  NotAssigned
+5   31.1  -32.3   -7.1   58.9   93.7   64.9      0  NotAssigned
+6   -9.7  -57.4  -32.6   99.7   68.6   39.4      0  NotAssigned
+7    1.9  -58.4  -28.7   88.1   67.6   43.3      0  NotAssigned
+8    8.5  -50.3  -27.8   81.5   75.7   44.2      0  NotAssigned
+9  -22.6  -27.4  -13.8  112.6   98.6   58.2      0  NotAssigned
+
+
+Saved variables at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/9861donor\_600Parcels\_17Network\_1mm.pkl
+
+Saved csv at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/9861donor\_600Parcels\_17Network\_1mm.csv
+
+Start to map genes from donor 9861 to Schaefer at 600 parcels and 17 networks at 2 mm resolution
+
+Mapping genes to image coordinates
+
+   mni\_x  mni\_y  mni\_z  img\_x  img\_y  img\_z parcel    community
+0    5.9  -27.7   49.7  42.05  49.15  60.85    345      SomMotA
+1   29.2   17.0   -2.9  30.40  71.50  34.55      0  NotAssigned
+2   28.2  -22.8   16.8  30.90  51.60  44.40      0  NotAssigned
+3  -24.6  -24.6    1.3  57.30  50.70  36.65      0  NotAssigned
+4   31.1  -31.3   -7.3  29.45  47.35  32.35      0  NotAssigned
+5   31.1  -32.3   -7.1  29.45  46.85  32.45      0  NotAssigned
+6   -9.7  -57.4  -32.6  49.85  34.30  19.70      0  NotAssigned
+7    1.9  -58.4  -28.7  44.05  33.80  21.65      0  NotAssigned
+8    8.5  -50.3  -27.8  40.75  37.85  22.10      0  NotAssigned
+9  -22.6  -27.4  -13.8  56.30  49.30  29.10      0  NotAssigned
+
+
+Saved variables at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/9861donor\_600Parcels\_17Network\_2mm.pkl
+
+Saved csv at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/9861donor\_600Parcels\_17Network\_2mm.csv
+
+Start to map genes from donor 9861 to Schaefer at 800 parcels and 7 networks at 1 mm resolution
+
+Mapping genes to image coordinates
+
+   mni\_x  mni\_y  mni\_z  img\_x  img\_y  img\_z parcel    community
+0    5.9  -27.7   49.7   84.1   98.3  121.7    514       SomMot
+1   29.2   17.0   -2.9   60.8  143.0   69.1      0  NotAssigned
+2   28.2  -22.8   16.8   61.8  103.2   88.8      0  NotAssigned
+3  -24.6  -24.6    1.3  114.6  101.4   73.3      0  NotAssigned
+4   31.1  -31.3   -7.3   58.9   94.7   64.7      0  NotAssigned
+5   31.1  -32.3   -7.1   58.9   93.7   64.9      0  NotAssigned
+6   -9.7  -57.4  -32.6   99.7   68.6   39.4      0  NotAssigned
+7    1.9  -58.4  -28.7   88.1   67.6   43.3      0  NotAssigned
+8    8.5  -50.3  -27.8   81.5   75.7   44.2      0  NotAssigned
+9  -22.6  -27.4  -13.8  112.6   98.6   58.2      0  NotAssigned
+
+
+Saved variables at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/9861donor\_800Parcels\_7Network\_1mm.pkl
+
+Saved csv at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/9861donor\_800Parcels\_7Network\_1mm.csv
+
+Start to map genes from donor 9861 to Schaefer at 800 parcels and 7 networks at 2 mm resolution
+
+Mapping genes to image coordinates
+
+   mni\_x  mni\_y  mni\_z  img\_x  img\_y  img\_z parcel    community
+0    5.9  -27.7   49.7  42.05  49.15  60.85    514       SomMot
+1   29.2   17.0   -2.9  30.40  71.50  34.55      0  NotAssigned
+2   28.2  -22.8   16.8  30.90  51.60  44.40      0  NotAssigned
+3  -24.6  -24.6    1.3  57.30  50.70  36.65      0  NotAssigned
+4   31.1  -31.3   -7.3  29.45  47.35  32.35      0  NotAssigned
+5   31.1  -32.3   -7.1  29.45  46.85  32.45      0  NotAssigned
+6   -9.7  -57.4  -32.6  49.85  34.30  19.70      0  NotAssigned
+7    1.9  -58.4  -28.7  44.05  33.80  21.65      0  NotAssigned
+8    8.5  -50.3  -27.8  40.75  37.85  22.10      0  NotAssigned
+9  -22.6  -27.4  -13.8  56.30  49.30  29.10      0  NotAssigned
+
+
+Saved variables at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/9861donor\_800Parcels\_7Network\_2mm.pkl
+
+Saved csv at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/9861donor\_800Parcels\_7Network\_2mm.csv
+
+Start to map genes from donor 9861 to Schaefer at 800 parcels and 17 networks at 1 mm resolution
+
+Mapping genes to image coordinates
+
+   mni\_x  mni\_y  mni\_z  img\_x  img\_y  img\_z parcel     community
+0    5.9  -27.7   49.7   84.1   98.3  121.7    603  SalVentAttnA
+1   29.2   17.0   -2.9   60.8  143.0   69.1      0   NotAssigned
+2   28.2  -22.8   16.8   61.8  103.2   88.8      0   NotAssigned
+3  -24.6  -24.6    1.3  114.6  101.4   73.3      0   NotAssigned
+4   31.1  -31.3   -7.3   58.9   94.7   64.7      0   NotAssigned
+5   31.1  -32.3   -7.1   58.9   93.7   64.9      0   NotAssigned
+6   -9.7  -57.4  -32.6   99.7   68.6   39.4      0   NotAssigned
+7    1.9  -58.4  -28.7   88.1   67.6   43.3      0   NotAssigned
+8    8.5  -50.3  -27.8   81.5   75.7   44.2      0   NotAssigned
+9  -22.6  -27.4  -13.8  112.6   98.6   58.2      0   NotAssigned
+
+
+Saved variables at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/9861donor\_800Parcels\_17Network\_1mm.pkl
+
+Saved csv at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/9861donor\_800Parcels\_17Network\_1mm.csv
+
+Start to map genes from donor 9861 to Schaefer at 800 parcels and 17 networks at 2 mm resolution
+
+Mapping genes to image coordinates
+
+   mni\_x  mni\_y  mni\_z  img\_x  img\_y  img\_z parcel     community
+0    5.9  -27.7   49.7  42.05  49.15  60.85    603  SalVentAttnA
+1   29.2   17.0   -2.9  30.40  71.50  34.55      0   NotAssigned
+2   28.2  -22.8   16.8  30.90  51.60  44.40      0   NotAssigned
+3  -24.6  -24.6    1.3  57.30  50.70  36.65      0   NotAssigned
+4   31.1  -31.3   -7.3  29.45  47.35  32.35      0   NotAssigned
+5   31.1  -32.3   -7.1  29.45  46.85  32.45      0   NotAssigned
+6   -9.7  -57.4  -32.6  49.85  34.30  19.70      0   NotAssigned
+7    1.9  -58.4  -28.7  44.05  33.80  21.65      0   NotAssigned
+8    8.5  -50.3  -27.8  40.75  37.85  22.10      0   NotAssigned
+9  -22.6  -27.4  -13.8  56.30  49.30  29.10      0   NotAssigned
+
+
+Saved variables at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/9861donor\_800Parcels\_17Network\_2mm.pkl
+
+Saved csv at /Users/hxia/Desktop/BBL/data/joy/BBL/projects/prsConnectivity/ABI/gene\_mapping/9861donor\_800Parcels\_17Network\_2mm.csv
+
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_4_3.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_4_4.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_4_5.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_4_6.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_4_7.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_4_8.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_4_9.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_4_10.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_4_11.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_4_12.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_4_13.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_4_14.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_4_15.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_4_16.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_4_17.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_4_18.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_4_19.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_4_20.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_4_21.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_4_22.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_4_23.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_4_24.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_4_25.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_4_26.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_4_27.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_4_28.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_4_29.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_4_30.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_4_31.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_4_32.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_4_33.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_4_34.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_4_35.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_4_36.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_4_37.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_4_38.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_4_39.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_4_40.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_4_41.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_4_42.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_4_43.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_4_44.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_4_45.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_4_46.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_4_47.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_4_48.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_4_49.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_4_50.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_4_51.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_4_52.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_4_53.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_4_54.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_4_55.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_4_56.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_4_57.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_4_58.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_4_59.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_4_60.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_4_61.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_4_62.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_4_63.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_4_64.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_4_65.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_4_66.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_4_67.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_4_68.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_4_69.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_4_70.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_4_71.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_4_72.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_4_73.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_4_74.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_4_75.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_4_76.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_4_77.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_4_78.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_4_79.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_4_80.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_4_81.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_4_82.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_4_83.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_4_84.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_4_85.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_4_86.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_4_87.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_4_88.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_4_89.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_4_90.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_4_91.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_4_92.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_4_93.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_4_94.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_4_95.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_4_96.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_4_97.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_4_98.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_4_99.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_4_100.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_4_101.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_4_102.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_4_103.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_4_104.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_4_105.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_4_106.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_4_107.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_4_108.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_4_109.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_4_110.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_4_111.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_4_112.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_4_113.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_4_114.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_4_115.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_4_116.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_4_117.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_4_118.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_4_119.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_4_120.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_4_121.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_4_122.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{n}{os}\PY{o}{.}\PY{n}{listdir}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{../ABI/gene\PYZus{}mapping/}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}2}]:} ['10021donor\_100Parcels\_17Network\_2mm.pkl',
+         '10021donor\_100Parcels\_7Network\_2mm.pkl',
+         '10021donor\_100Parcels\_17Network\_2mm.csv',
+         '10021donor\_100Parcels\_7Network\_1mm.pkl',
+         '10021donor\_100Parcels\_7Network\_1mm.csv',
+         '10021donor\_100Parcels\_7Network\_2mm.csv',
+         '10021donor\_100Parcels\_17Network\_1mm.pkl',
+         '10021donor\_100Parcels\_17Network\_1mm.csv',
+         '10021donor\_200Parcels\_7Network\_1mm.pkl',
+         '10021donor\_200Parcels\_7Network\_1mm.csv',
+         '10021donor\_200Parcels\_7Network\_2mm.pkl',
+         '10021donor\_200Parcels\_7Network\_2mm.csv',
+         '10021donor\_200Parcels\_17Network\_1mm.pkl',
+         '10021donor\_200Parcels\_17Network\_1mm.csv',
+         '10021donor\_200Parcels\_17Network\_2mm.pkl',
+         '10021donor\_200Parcels\_17Network\_2mm.csv',
+         '10021donor\_400Parcels\_7Network\_1mm.pkl',
+         '10021donor\_400Parcels\_7Network\_1mm.csv',
+         '10021donor\_400Parcels\_7Network\_2mm.pkl',
+         '10021donor\_400Parcels\_7Network\_2mm.csv',
+         '10021donor\_400Parcels\_17Network\_1mm.pkl',
+         '10021donor\_400Parcels\_17Network\_1mm.csv',
+         '10021donor\_400Parcels\_17Network\_2mm.pkl',
+         '10021donor\_400Parcels\_17Network\_2mm.csv',
+         '10021donor\_600Parcels\_7Network\_1mm.pkl',
+         '10021donor\_600Parcels\_7Network\_1mm.csv',
+         '10021donor\_600Parcels\_7Network\_2mm.pkl',
+         '10021donor\_600Parcels\_7Network\_2mm.csv',
+         '10021donor\_600Parcels\_17Network\_1mm.pkl',
+         '10021donor\_600Parcels\_17Network\_1mm.csv',
+         '10021donor\_600Parcels\_17Network\_2mm.pkl',
+         '10021donor\_600Parcels\_17Network\_2mm.csv',
+         '10021donor\_800Parcels\_7Network\_1mm.pkl',
+         '10021donor\_800Parcels\_7Network\_1mm.csv',
+         '10021donor\_800Parcels\_7Network\_2mm.pkl',
+         '10021donor\_800Parcels\_7Network\_2mm.csv',
+         '10021donor\_800Parcels\_17Network\_1mm.pkl',
+         '10021donor\_800Parcels\_17Network\_1mm.csv',
+         '10021donor\_800Parcels\_17Network\_2mm.pkl',
+         '10021donor\_800Parcels\_17Network\_2mm.csv',
+         '12876donor\_100Parcels\_7Network\_1mm.pkl',
+         '12876donor\_100Parcels\_7Network\_1mm.csv',
+         '12876donor\_100Parcels\_7Network\_2mm.pkl',
+         '12876donor\_100Parcels\_7Network\_2mm.csv',
+         '12876donor\_100Parcels\_17Network\_1mm.pkl',
+         '12876donor\_100Parcels\_17Network\_1mm.csv',
+         '12876donor\_100Parcels\_17Network\_2mm.pkl',
+         '12876donor\_100Parcels\_17Network\_2mm.csv',
+         '12876donor\_200Parcels\_7Network\_1mm.pkl',
+         '12876donor\_200Parcels\_7Network\_1mm.csv',
+         '12876donor\_200Parcels\_7Network\_2mm.pkl',
+         '12876donor\_200Parcels\_7Network\_2mm.csv',
+         '12876donor\_200Parcels\_17Network\_1mm.pkl',
+         '12876donor\_200Parcels\_17Network\_1mm.csv',
+         '12876donor\_200Parcels\_17Network\_2mm.pkl',
+         '12876donor\_200Parcels\_17Network\_2mm.csv',
+         '12876donor\_400Parcels\_7Network\_1mm.pkl',
+         '12876donor\_400Parcels\_7Network\_1mm.csv',
+         '12876donor\_400Parcels\_7Network\_2mm.pkl',
+         '12876donor\_400Parcels\_7Network\_2mm.csv',
+         '12876donor\_400Parcels\_17Network\_1mm.pkl',
+         '12876donor\_400Parcels\_17Network\_1mm.csv',
+         '12876donor\_400Parcels\_17Network\_2mm.pkl',
+         '12876donor\_400Parcels\_17Network\_2mm.csv',
+         '12876donor\_600Parcels\_7Network\_1mm.pkl',
+         '12876donor\_600Parcels\_7Network\_1mm.csv',
+         '12876donor\_600Parcels\_7Network\_2mm.pkl',
+         '12876donor\_600Parcels\_7Network\_2mm.csv',
+         '12876donor\_600Parcels\_17Network\_1mm.pkl',
+         '12876donor\_600Parcels\_17Network\_1mm.csv',
+         '12876donor\_600Parcels\_17Network\_2mm.pkl',
+         '12876donor\_600Parcels\_17Network\_2mm.csv',
+         '12876donor\_800Parcels\_7Network\_1mm.pkl',
+         '12876donor\_800Parcels\_7Network\_1mm.csv',
+         '12876donor\_800Parcels\_7Network\_2mm.pkl',
+         '12876donor\_800Parcels\_7Network\_2mm.csv',
+         '12876donor\_800Parcels\_17Network\_1mm.pkl',
+         '12876donor\_800Parcels\_17Network\_1mm.csv',
+         '12876donor\_800Parcels\_17Network\_2mm.pkl',
+         '12876donor\_800Parcels\_17Network\_2mm.csv',
+         '14380donor\_100Parcels\_7Network\_1mm.pkl',
+         '14380donor\_100Parcels\_7Network\_1mm.csv',
+         '14380donor\_100Parcels\_7Network\_2mm.pkl',
+         '14380donor\_100Parcels\_7Network\_2mm.csv',
+         '14380donor\_100Parcels\_17Network\_1mm.pkl',
+         '14380donor\_100Parcels\_17Network\_1mm.csv',
+         '14380donor\_100Parcels\_17Network\_2mm.pkl',
+         '14380donor\_100Parcels\_17Network\_2mm.csv',
+         '14380donor\_200Parcels\_7Network\_1mm.pkl',
+         '14380donor\_200Parcels\_7Network\_1mm.csv',
+         '14380donor\_200Parcels\_7Network\_2mm.pkl',
+         '14380donor\_200Parcels\_7Network\_2mm.csv',
+         '14380donor\_200Parcels\_17Network\_1mm.pkl',
+         '14380donor\_200Parcels\_17Network\_1mm.csv',
+         '14380donor\_200Parcels\_17Network\_2mm.pkl',
+         '14380donor\_200Parcels\_17Network\_2mm.csv',
+         '14380donor\_400Parcels\_7Network\_1mm.pkl',
+         '14380donor\_400Parcels\_7Network\_1mm.csv',
+         '14380donor\_400Parcels\_7Network\_2mm.pkl',
+         '14380donor\_400Parcels\_7Network\_2mm.csv',
+         '14380donor\_400Parcels\_17Network\_1mm.pkl',
+         '14380donor\_400Parcels\_17Network\_1mm.csv',
+         '14380donor\_400Parcels\_17Network\_2mm.pkl',
+         '14380donor\_400Parcels\_17Network\_2mm.csv',
+         '14380donor\_600Parcels\_7Network\_1mm.pkl',
+         '14380donor\_600Parcels\_7Network\_1mm.csv',
+         '14380donor\_600Parcels\_7Network\_2mm.pkl',
+         '14380donor\_600Parcels\_7Network\_2mm.csv',
+         '14380donor\_600Parcels\_17Network\_1mm.pkl',
+         '14380donor\_600Parcels\_17Network\_1mm.csv',
+         '14380donor\_600Parcels\_17Network\_2mm.pkl',
+         '14380donor\_600Parcels\_17Network\_2mm.csv',
+         '14380donor\_800Parcels\_7Network\_1mm.pkl',
+         '14380donor\_800Parcels\_7Network\_1mm.csv',
+         '14380donor\_800Parcels\_7Network\_2mm.pkl',
+         '14380donor\_800Parcels\_7Network\_2mm.csv',
+         '14380donor\_800Parcels\_17Network\_1mm.pkl',
+         '14380donor\_800Parcels\_17Network\_1mm.csv',
+         '14380donor\_800Parcels\_17Network\_2mm.pkl',
+         '14380donor\_800Parcels\_17Network\_2mm.csv',
+         '15496donor\_100Parcels\_7Network\_1mm.pkl',
+         '15496donor\_100Parcels\_7Network\_1mm.csv',
+         '15496donor\_100Parcels\_7Network\_2mm.pkl',
+         '15496donor\_100Parcels\_7Network\_2mm.csv',
+         '15496donor\_100Parcels\_17Network\_1mm.pkl',
+         '15496donor\_100Parcels\_17Network\_1mm.csv',
+         '15496donor\_100Parcels\_17Network\_2mm.pkl',
+         '15496donor\_100Parcels\_17Network\_2mm.csv',
+         '15496donor\_200Parcels\_7Network\_1mm.pkl',
+         '15496donor\_200Parcels\_7Network\_1mm.csv',
+         '15496donor\_200Parcels\_7Network\_2mm.pkl',
+         '15496donor\_200Parcels\_7Network\_2mm.csv',
+         '15496donor\_200Parcels\_17Network\_1mm.pkl',
+         '15496donor\_200Parcels\_17Network\_1mm.csv',
+         '15496donor\_200Parcels\_17Network\_2mm.pkl',
+         '15496donor\_200Parcels\_17Network\_2mm.csv',
+         '15496donor\_400Parcels\_7Network\_1mm.pkl',
+         '15496donor\_400Parcels\_7Network\_1mm.csv',
+         '15496donor\_400Parcels\_7Network\_2mm.pkl',
+         '15496donor\_400Parcels\_7Network\_2mm.csv',
+         '15496donor\_400Parcels\_17Network\_1mm.pkl',
+         '9861donor\_100Parcels\_7Network\_1mm.pkl',
+         '15496donor\_400Parcels\_17Network\_1mm.csv',
+         '15496donor\_400Parcels\_17Network\_2mm.pkl',
+         '15496donor\_400Parcels\_17Network\_2mm.csv',
+         '15496donor\_600Parcels\_7Network\_1mm.pkl',
+         '15496donor\_600Parcels\_7Network\_1mm.csv',
+         '15496donor\_600Parcels\_7Network\_2mm.pkl',
+         '15496donor\_600Parcels\_7Network\_2mm.csv',
+         '15496donor\_600Parcels\_17Network\_1mm.pkl',
+         '15496donor\_600Parcels\_17Network\_1mm.csv',
+         '15496donor\_600Parcels\_17Network\_2mm.pkl',
+         '15496donor\_600Parcels\_17Network\_2mm.csv',
+         '15496donor\_800Parcels\_7Network\_1mm.pkl',
+         '15496donor\_800Parcels\_7Network\_1mm.csv',
+         '15496donor\_800Parcels\_7Network\_2mm.pkl',
+         '15496donor\_800Parcels\_7Network\_2mm.csv',
+         '15496donor\_800Parcels\_17Network\_1mm.pkl',
+         '15496donor\_800Parcels\_17Network\_1mm.csv',
+         '15496donor\_800Parcels\_17Network\_2mm.pkl',
+         '15496donor\_800Parcels\_17Network\_2mm.csv',
+         '15697donor\_100Parcels\_7Network\_1mm.pkl',
+         '15697donor\_100Parcels\_7Network\_1mm.csv',
+         '15697donor\_100Parcels\_7Network\_2mm.pkl',
+         '15697donor\_100Parcels\_7Network\_2mm.csv',
+         '15697donor\_100Parcels\_17Network\_1mm.pkl',
+         '15697donor\_100Parcels\_17Network\_1mm.csv',
+         '15697donor\_100Parcels\_17Network\_2mm.pkl',
+         '15697donor\_100Parcels\_17Network\_2mm.csv',
+         '15697donor\_200Parcels\_7Network\_1mm.pkl',
+         '15697donor\_200Parcels\_7Network\_1mm.csv',
+         '15697donor\_200Parcels\_7Network\_2mm.pkl',
+         '15697donor\_200Parcels\_7Network\_2mm.csv',
+         '15697donor\_200Parcels\_17Network\_1mm.pkl',
+         '15697donor\_200Parcels\_17Network\_1mm.csv',
+         '15697donor\_200Parcels\_17Network\_2mm.pkl',
+         '15697donor\_200Parcels\_17Network\_2mm.csv',
+         '15697donor\_400Parcels\_7Network\_1mm.pkl',
+         '15697donor\_400Parcels\_7Network\_1mm.csv',
+         '15697donor\_400Parcels\_7Network\_2mm.pkl',
+         '15697donor\_400Parcels\_7Network\_2mm.csv',
+         '15697donor\_400Parcels\_17Network\_1mm.pkl',
+         '15697donor\_400Parcels\_17Network\_1mm.csv',
+         '15697donor\_400Parcels\_17Network\_2mm.pkl',
+         '15697donor\_400Parcels\_17Network\_2mm.csv',
+         '15697donor\_600Parcels\_7Network\_1mm.pkl',
+         '15697donor\_600Parcels\_7Network\_1mm.csv',
+         '15697donor\_600Parcels\_7Network\_2mm.pkl',
+         '15697donor\_600Parcels\_7Network\_2mm.csv',
+         '15697donor\_600Parcels\_17Network\_1mm.pkl',
+         '15697donor\_600Parcels\_17Network\_1mm.csv',
+         '15697donor\_600Parcels\_17Network\_2mm.pkl',
+         '15697donor\_600Parcels\_17Network\_2mm.csv',
+         '15697donor\_800Parcels\_7Network\_1mm.pkl',
+         '15697donor\_800Parcels\_7Network\_1mm.csv',
+         '15697donor\_800Parcels\_7Network\_2mm.pkl',
+         '15697donor\_800Parcels\_7Network\_2mm.csv',
+         '15697donor\_800Parcels\_17Network\_1mm.pkl',
+         '15697donor\_800Parcels\_17Network\_1mm.csv',
+         '15697donor\_800Parcels\_17Network\_2mm.pkl',
+         '15697donor\_800Parcels\_17Network\_2mm.csv',
+         '9861donor\_100Parcels\_7Network\_1mm.csv',
+         '9861donor\_100Parcels\_7Network\_2mm.pkl',
+         '9861donor\_100Parcels\_7Network\_2mm.csv',
+         '9861donor\_100Parcels\_17Network\_1mm.pkl',
+         '9861donor\_100Parcels\_17Network\_1mm.csv',
+         '9861donor\_100Parcels\_17Network\_2mm.pkl',
+         '9861donor\_100Parcels\_17Network\_2mm.csv',
+         '9861donor\_200Parcels\_7Network\_1mm.pkl',
+         '9861donor\_200Parcels\_7Network\_1mm.csv',
+         '9861donor\_200Parcels\_7Network\_2mm.pkl',
+         '9861donor\_200Parcels\_7Network\_2mm.csv',
+         '9861donor\_200Parcels\_17Network\_1mm.pkl',
+         '9861donor\_200Parcels\_17Network\_1mm.csv',
+         '9861donor\_200Parcels\_17Network\_2mm.pkl',
+         '9861donor\_400Parcels\_7Network\_1mm.pkl',
+         '9861donor\_200Parcels\_17Network\_2mm.csv',
+         '9861donor\_400Parcels\_7Network\_1mm.csv',
+         '9861donor\_400Parcels\_7Network\_2mm.pkl',
+         '9861donor\_400Parcels\_7Network\_2mm.csv',
+         '9861donor\_400Parcels\_17Network\_1mm.pkl',
+         '9861donor\_400Parcels\_17Network\_1mm.csv',
+         '9861donor\_400Parcels\_17Network\_2mm.pkl',
+         '9861donor\_400Parcels\_17Network\_2mm.csv',
+         '9861donor\_600Parcels\_7Network\_1mm.pkl',
+         '9861donor\_600Parcels\_7Network\_1mm.csv',
+         '9861donor\_600Parcels\_7Network\_2mm.pkl',
+         '9861donor\_600Parcels\_7Network\_2mm.csv',
+         '9861donor\_600Parcels\_17Network\_1mm.pkl',
+         '9861donor\_600Parcels\_17Network\_1mm.csv',
+         '9861donor\_600Parcels\_17Network\_2mm.pkl',
+         '9861donor\_600Parcels\_17Network\_2mm.csv',
+         '9861donor\_800Parcels\_7Network\_1mm.pkl',
+         '9861donor\_800Parcels\_7Network\_1mm.csv',
+         '9861donor\_800Parcels\_7Network\_2mm.pkl',
+         '9861donor\_800Parcels\_7Network\_2mm.csv',
+         '9861donor\_800Parcels\_17Network\_1mm.pkl',
+         '9861donor\_800Parcels\_17Network\_1mm.csv',
+         '9861donor\_800Parcels\_17Network\_2mm.pkl',
+         '9861donor\_800Parcels\_17Network\_2mm.csv']
+\end{Verbatim}
+            
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
