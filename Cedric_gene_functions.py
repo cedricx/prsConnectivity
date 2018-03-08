@@ -1,6 +1,14 @@
 
 # coding: utf-8
 
+# In[6]:
+
+
+get_ipython().system(u'jupyter nbconvert --to script Cedric_gene_functions.ipynb')
+
+
+# ## geneMNItoSchaefer
+
 # In[76]:
 
 
@@ -87,4 +95,47 @@ def geneMNItoSchaefer (donor, numParcels, numNetworks, mm):
     
     print 'Saved variables at ' + variables_filename + '\n'
     print 'Saved csv at ' + csv_filename + '\n'
+
+
+# ## selectProbe
+
+# In[ ]:
+
+
+def selectProbe (donor):
+    import os
+    import pandas as pd
+    
+    # Set up the working directory
+    # All paths after this are relative path to the root of chead
+
+    wk_dir = '/Users/hxia/Desktop/BBL/' # this is where I have mounted chead to on my laptop. 
+    # Change the above to an empty string if working directly on chead 
+
+    # Set up the project directory
+    project_path = os.path.join(wk_dir,'data/joy/BBL/projects/prsConnectivity')
+    
+    # set paths
+    donor_path = os.path.join(project_path,'ABI','normalized_microarray_donor%s' % donor)
+    probes_info = pd.read_csv(os.path.join(donor_path,'Probes.csv'))
+    gene_expr = pd.read_csv(os.path.join(donor_path,'MicroarrayExpression.csv'),header=None)
+    sample_info = pd.read_csv(os.path.join(donor_path,'SampleAnnot.csv'))
+    
+    # get probes with available gene names
+    valid_probes = probes_info['entrez_id']>0
+    gene_expr = gene_expr[valid_probes]
+    probes_info = probes_info[valid_probes]
+    
+    # collapse rows
+    probe_names = probes_info['gene_symbol'][probes_info['probe_id'] == gene_expr[0]]
+    datCollapsed = gene_expr.groupby(probe_names).max()
+    
+    # create column names
+    gene_col_names = ['probe_id']
+    structure_ids = list(sample_info['structure_id'].astype(str))
+    gene_col_names.extend(structure_ids)
+    datCollapsed.columns = gene_col_names
+    
+    # output
+    return datCollapsed
 
